@@ -1,14 +1,21 @@
+//
 import express = require('express');
+import MainRoutes from './routes';
 
 class App {
+  //
   public app: express.Express;
+  private mainRoutes: MainRoutes = new MainRoutes();
 
   constructor() {
     this.app = express();
-
+    this.mainRoutes = new MainRoutes();
     this.app.use(express.json());
+    this.routes();
+  }
 
-    this.app.get('/', (_req, res) => res.status(200).send('App is running!'));
+  private routes(): void {
+    this.app.use(this.mainRoutes.router);
   }
 
   public start(PORT: string | number):void {
