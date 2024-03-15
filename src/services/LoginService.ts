@@ -23,7 +23,7 @@ export default class LoginService {
     const token = JwtService.createToken({ id: user.id, email: user.email });
 
     if (!token) {
-        return { status: 'UNAUTHORIZED', data: { message: this.errorMessage } };
+        return { status: 'INTERNAL_ERROR', data: { message: 'Internal error!' } };
     }
 
     return { status: 'SUCCESSFUL', data: { token } };
