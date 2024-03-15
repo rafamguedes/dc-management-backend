@@ -10,7 +10,6 @@ export default class MainRoutes {
     this.initializeRoutes();
   }
  
-  // Health check route
   private initializeRoutes() {
     this.router.use('/', HealthRoute);
     this.router.use('/login', LoginRoutes);
