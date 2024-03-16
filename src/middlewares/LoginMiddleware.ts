@@ -5,6 +5,7 @@ import IUser from '../interfaces/User/IUser';
 class LoginMiddleware {
   //
   private static messageEmptyField = 'All fields must be filled';
+  
   private static messageInvalidField = 'Invalid email or password';
 
   private static loginSchema = Joi.object({

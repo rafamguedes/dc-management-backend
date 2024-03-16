@@ -6,6 +6,7 @@ import Authenticate from '../middlewares/AuthMiddleware';
 class LoginRoutes {
   //
   public router: Router;
+  
   private loginController: LoginController;
 
   constructor() {

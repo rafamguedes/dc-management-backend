@@ -14,6 +14,6 @@ const statusCode = (status: string): number => {
 
     default: return 500;
   }
-}
+};
 
 export default statusCode;

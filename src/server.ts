@@ -1,7 +1,9 @@
+//
 import App from './app';
 
 class Server {
   private app: App;
+
   private port: string | number;
 
   constructor(port: string | number) {

@@ -5,6 +5,7 @@ import MainRoutes from './routes';
 class App {
   //
   public app: express.Express;
+  
   private mainRoutes: MainRoutes = new MainRoutes();
 
   constructor() {
