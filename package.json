@@ -10,6 +10,8 @@
     "test": "mocha -r ts-node/register tests/**/**/*.test.ts --exit -t 60000 --exit",
     "test:coverage": "nyc mocha -r ts-node/register tests/**/**/*.test.ts --exit -t 60000",
     "lint": "tsc && eslint . --ext .ts",
+    "compose:up": "docker-compose up -d --build",
+    "compose:down": "docker-compose down --remove-orphans",
     "db:reset": "npx -y tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   },
   "keywords": [],

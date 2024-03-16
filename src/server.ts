@@ -1,5 +1,5 @@
 //
-import App from './app';
+import { App } from './app';
 
 class Server {
   private app: App;
