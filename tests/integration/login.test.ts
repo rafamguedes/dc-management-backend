@@ -3,7 +3,7 @@ import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
-import app from '../../src/app';
+import { app } from '../../src/app';
 import JwtService from '../../src/utils/JwtService';
 import { tokenMock } from '../mocks/user.mock';
 import LoginService from '../../src/services/LoginService';
