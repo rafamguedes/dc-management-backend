@@ -3,7 +3,7 @@ import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 import { app } from '../../src/app';
-import { usersMock, userMockCreate } from '../mocks/user.mock';
+import { usersMock, userMockCreate, userMockUpdate } from '../mocks/user.mock';
 import { UserModel } from '../../src/models/UserModel';
 
 chai.use(chaiHttp);
@@ -103,6 +103,32 @@ describe('Integration User tests', () => {
         // assert
         expect(res.status).to.equal(200);
         expect(res.body).to.deep.equal(userMockCreate);
+    });
+  });
+
+  describe('1.4 - updateUser', () => {
+    it('1.4.1 - should return user updated', async function() {
+      // arrange
+      sinon.stub(UserModel.prototype, 'getById').resolves(userMockUpdate as any);
+      sinon.stub(UserModel.prototype, 'updateUser').resolves(userMockUpdate as any);
+
+      // act
+      const res = await chai.request(app).put('/user/1').send(userMockUpdate);
+
+      // assert
+      expect(res.status).to.equal(200);
+      expect(res.body).to.deep.equal(userMockUpdate);
+    });
+
+    it('1.4.2 - should return 500 if user does not exist', async function() {
+      // arrange
+      sinon.stub(UserModel.prototype, 'getById').resolves(null);
+
+      // act
+      const res = await chai.request(app).put('/user/1').send(userMockUpdate);
+
+      // assert
+      expect(res.status).to.equal(500);
     });
   });
 });

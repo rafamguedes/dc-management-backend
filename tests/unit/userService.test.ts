@@ -32,7 +32,7 @@ describe('Unit Tests UserService', () => {
 
     // Assert
     expect(users.status).to.eql('INTERNAL_ERROR');
-    expect(users.data).to.eql({ message: 'Failed to fetch users' });
+    expect(users.data).to.eql({ message: 'Failed to get users' });
   });
 
   it('1.3 - should register a user', async () => {
