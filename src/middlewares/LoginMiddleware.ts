@@ -1,46 +1,31 @@
 import * as Joi from 'joi';
 import { NextFunction, Request, Response } from 'express';
-import IUser from '../interfaces/User/IUser';
 
-class LoginMiddleware {
+class LoginValidator {
   //
-  private static messageEmptyField = 'All fields must be filled';
-  
-  private static messageInvalidField = 'Invalid email or password';
-
   private static loginSchema = Joi.object({
     //
     email: Joi.string().email().required().messages({
-      'string.email': LoginMiddleware.messageInvalidField,
-      'string.empty': LoginMiddleware.messageEmptyField,
-      'any.required': LoginMiddleware.messageEmptyField,
+      'string.email': '"email" must be a valid email',
+      'any.required': '"email" is required',
     }),
     password: Joi.string().min(6).required().messages({
-      'string.min': LoginMiddleware.messageInvalidField,
-      'string.empty': LoginMiddleware.messageEmptyField,
-      'any.required': LoginMiddleware.messageEmptyField,
+      'string.min': '"password" length must be at least 6 characters long',
+      'any.required': '"password" is required',
+      'string.base': '"password" must be a string',
     }),
   });
 
-  private static validateLoginFields(body: IUser) {
+  public static validateBody(req: Request, res: Response, next: NextFunction): void | Response {
     //
-    const { error } = LoginMiddleware.loginSchema.validate(body);
-    if (error) return error.details[0].message;
-  }
+    const { error }: Joi.ValidationResult = LoginValidator.loginSchema.validate(req.body);
 
-  public static validateLogin(req: Request, res: Response, next: NextFunction): Response | void {
-    //
-    const message = LoginMiddleware.validateLoginFields(req.body);
-
-    if (message) {
-      if (message === LoginMiddleware.messageInvalidField) {
-        return res.status(401).json({ message });
-      }
-      return res.status(400).json({ message });
+    if (error) {
+      return res.status(400).json({ status: 'INVALID_VALUE', message: error.details[0].message });
     }
 
     next();
   }
 }
 
-export default LoginMiddleware.validateLogin;
+export { LoginValidator };

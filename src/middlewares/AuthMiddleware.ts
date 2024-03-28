@@ -4,9 +4,9 @@ import { JwtService } from '../utils/JwtService';
 const TOKEN_NOT_FOUND = 'Token not found';
 const INVALID_TOKEN = 'Token must be a valid token';
 
-class AuthMiddleware {
+class Authenticate {
   //
-  public static validateToken(req: Request, res: Response, next: NextFunction) {
+  public static authToken(req: Request, res: Response, next: NextFunction) {
     //
     const { authorization } = req.headers;
     
@@ -27,4 +27,4 @@ class AuthMiddleware {
   }
 }
 
-export default AuthMiddleware.validateToken;
+export { Authenticate };

@@ -8,7 +8,7 @@ export interface ILogin {
 }
 
 // Complete user
-export default interface IUser extends Identifiable, ILogin {
+export interface IUser extends Identifiable, ILogin {
   username: string;
   role: string;
 }

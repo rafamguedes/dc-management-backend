@@ -1,7 +1,7 @@
 import { Request, Router, Response } from 'express';
 import { LoginController } from '../controllers/LoginController';
-import LoginMiddleware from '../middlewares/LoginMiddleware';
-import Authenticate from '../middlewares/AuthMiddleware';
+import { LoginValidator } from '../middlewares/LoginMiddleware';
+import { Authenticate } from '../middlewares/AuthMiddleware';
 
 class LoginRoutes {
   public router: Router;
@@ -17,13 +17,13 @@ class LoginRoutes {
   private initializeRoutes() {
     this.router.post(
       '/',
-      LoginMiddleware,
+      LoginValidator.validateBody,
       (req: Request, res: Response) => this.loginController.authenticateUser(req, res),
     );
 
     this.router.get(
       '/role',
-      Authenticate,
+      Authenticate.authToken,
       (req: Request, res: Response) => this.loginController.fetchUserRole(req, res),
     );
   }

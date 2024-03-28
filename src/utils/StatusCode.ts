@@ -1,5 +1,5 @@
 //
-const statusCode = (status: string): number => {
+const StatusCode = (status: string): number => {
   //
   switch (status) {
     //
@@ -16,4 +16,4 @@ const statusCode = (status: string): number => {
   }
 };
 
-export default statusCode;
+export { StatusCode };
