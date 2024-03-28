@@ -20,6 +20,17 @@ class UserService {
   }
 
 
+  public async getAllUsers(): Promise<ServiceResponse<IUser[]>> {
+    const users = await this.userModel.getAllUsers();
+
+    if (!users) {
+      return { status: INTERNAL_ERROR, data: { message: 'Failed to fetch users' } };
+    }
+
+    return { status: SUCCESSFUL, data: users };
+  }
+  
+
   public async registerUser(user: IUser): Promise<ServiceResponse<IUserResponse>> {
     const existingUser = await this.userModel.getByEmail(user.email);
 
@@ -36,7 +47,7 @@ class UserService {
 
     return { status: SUCCESSFUL, data: newUser };
   }
-  
+
 }
 
 export { UserService };

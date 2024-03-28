@@ -9,14 +9,24 @@ class UserController {
     this.userService = userService;
   }
 
+
+  public async getAllUsers(req: Request, res: Response): Promise<Response> {
+    // 
+    const { status, data } = await this.userService.getAllUsers();
+
+    return res.status(StatusCode(status)).json(data);
+  }
+
+
   public async registerUser(req: Request, res: Response): Promise<Response> {
     // 
     const { body } = req;
 
-    const response = await this.userService.registerUser(body);
+    const { status, data } = await this.userService.registerUser(body);
 
-    return res.status(StatusCode(response.status)).json(response.data);
+    return res.status(StatusCode(status)).json(data);
   }
+  
 }
 
 export { UserController };

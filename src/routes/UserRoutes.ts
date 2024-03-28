@@ -14,6 +14,12 @@ class UserRoutes {
   }
 
   private initializeRoutes() {
+
+    this.router.get(
+      '/',
+      (req: Request, res: Response) => this.userController.getAllUsers(req, res),
+    );
+
     this.router.post(
       '/',
       UserValidator.validateBody,
