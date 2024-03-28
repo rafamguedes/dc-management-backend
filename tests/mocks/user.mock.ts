@@ -7,7 +7,14 @@ export const userMock = {
 };
   
 export const tokenMock = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAdXNlci5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcwOTU1NDE2NCwiZXhwIjoxNzA5NTU3NzY0fQ.MHdAnIP54zcm-TwlUoxF1xaLEgtlp6fuN5mbDLfPaDU';
-  
+
+export const userMockCreate = {
+  username: 'Rafael Guedes',
+  role: 'user',
+  email: 'rafael@email.com',
+  password: '123456',
+};
+
 export const usersMock = [
   {
     "id": 1,
