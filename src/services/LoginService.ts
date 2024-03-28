@@ -18,6 +18,7 @@ class LoginService {
     this.userModel = userModel;
   }
 
+
   public async authenticateUser({ email, password }: ILogin): Promise<ServiceResponse<IToken>> {
     const user = await this.userModel.getByEmail(email);
 
@@ -33,6 +34,7 @@ class LoginService {
 
     return { status: SUCCESSFUL, data: { token } };
   }
+  
 
   public async fetchUserRole(email: string): Promise<ServiceResponse<IUserRole>> {
     const user = await this.userModel.getByEmail(email);

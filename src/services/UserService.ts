@@ -19,6 +19,7 @@ class UserService {
     this.userModel = userModel;
   }
 
+
   public async registerUser(user: IUser): Promise<ServiceResponse<IUserResponse>> {
     const existingUser = await this.userModel.getByEmail(user.email);
 
@@ -35,6 +36,7 @@ class UserService {
 
     return { status: SUCCESSFUL, data: newUser };
   }
+  
 }
 
 export { UserService };

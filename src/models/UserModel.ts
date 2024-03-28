@@ -32,6 +32,7 @@ class UserModel implements IUserModel {
 
     return userWithoutPassword;
   }
+  
 }
 
 export { UserModel };
