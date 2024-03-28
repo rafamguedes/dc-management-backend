@@ -1,40 +1,48 @@
-//
-import * as bcript from 'bcrypt';
-import UserModel from '../models/UserModel';
-import JwtService from '../utils/JwtService';
+import * as bcrypt from 'bcrypt';
+import { UserModel } from '../models/UserModel';
+import { JwtService } from '../utils/JwtService';
 import { IUserModel } from '../interfaces/User/IUserModel';
 import { ServiceResponse } from '../utils/ServiceResponse';
 import { ILogin, IUserRole, IToken } from '../interfaces/User/IUser';
 
-export default class LoginService {
-  //
-  private errorMessage = 'Invalid email or password';
+const UNAUTHORIZED = 'UNAUTHORIZED';
+const INTERNAL_ERROR = 'INTERNAL_ERROR';
+const SUCCESSFUL = 'SUCCESSFUL';
+const INVALID_CREDENTIALS_MESSAGE = 'Invalid email or password';
+const INTERNAL_ERROR_MESSAGE = 'Internal error!';
 
-  constructor(private userModel: IUserModel = new UserModel()) { }
+class LoginService {
+  private userModel: IUserModel;
 
-  public async signUp(data: ILogin): Promise<ServiceResponse<IToken>> {
-    //
-    const user = await this.userModel.getByEmail(data.email);
+  constructor(userModel: IUserModel = new UserModel()) {
+    this.userModel = userModel;
+  }
 
-    if (!user || !bcript.compareSync(data.password, user.password)) {
-      return { status: 'UNAUTHORIZED', data: { message: this.errorMessage } };
+  public async authenticateUser({ email, password }: ILogin): Promise<ServiceResponse<IToken>> {
+    const user = await this.userModel.getByEmail(email);
+
+    if (!user || !bcrypt.compareSync(password, user.password)) {
+      return { status: UNAUTHORIZED, data: { message: INVALID_CREDENTIALS_MESSAGE } };
     }
 
     const token = JwtService.createToken({ id: user.id, email: user.email });
 
     if (!token) {
-      return { status: 'INTERNAL_ERROR', data: { message: 'Internal error!' } };
+      return { status: INTERNAL_ERROR, data: { message: INTERNAL_ERROR_MESSAGE } };
     }
 
-    return { status: 'SUCCESSFUL', data: { token } };
+    return { status: SUCCESSFUL, data: { token } };
   }
 
-  public async getRole(email: string): Promise<ServiceResponse<IUserRole>> {
-    //
+  public async fetchUserRole(email: string): Promise<ServiceResponse<IUserRole>> {
     const user = await this.userModel.getByEmail(email);
 
-    if (!user) return { status: 'UNAUTHORIZED', data: { message: this.errorMessage } };
+    if (!user) {
+      return { status: UNAUTHORIZED, data: { message: INVALID_CREDENTIALS_MESSAGE } };
+    }
 
-    return { status: 'SUCCESSFUL', data: { role: user.role } };
+    return { status: SUCCESSFUL, data: { role: user.role } };
   }
 }
+
+export { LoginService };

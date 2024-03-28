@@ -1,21 +1,24 @@
-//
 import { Request, Response } from 'express';
-import LoginService from '../services/LoginService';
+import { LoginService } from '../services/LoginService';
 import statusCode from '../utils/StatusCode';
 
-export default class LoginController {
-  //
-  constructor(private loginService = new LoginService()) { }
+class LoginController {
+  private loginService: LoginService;
 
-  public async signUp(req: Request, res: Response): Promise<Response> {
-    //
-    const { status, data } = await this.loginService.signUp(req.body);
+  constructor(loginService: LoginService = new LoginService()) {
+    this.loginService = loginService;
+  }
+
+  public async authenticateUser({ body }: Request, res: Response): Promise<Response> {
+    const { status, data } = await this.loginService.authenticateUser(body);
     return res.status(statusCode(status)).json(data);
   }
 
-  public async getUserRole(_req: Request, res: Response): Promise<Response> {
-    //
-    const { status, data } = await this.loginService.getRole(res.locals.user.email);
+  public async fetchUserRole(_req: Request, res: Response): Promise<Response> {
+    const email = res.locals.user.email;
+    const { status, data } = await this.loginService.fetchUserRole(email);
     return res.status(statusCode(status)).json(data);
   }
 }
+
+export { LoginController };

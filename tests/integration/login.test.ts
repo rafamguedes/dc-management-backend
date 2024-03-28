@@ -4,9 +4,9 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../../src/app';
-import JwtService from '../../src/utils/JwtService';
+import { JwtService } from '../../src/utils/JwtService';
 import { tokenMock } from '../mocks/user.mock';
-import LoginService from '../../src/services/LoginService';
+import { LoginService } from '../../src/services/LoginService';
 
 chai.use(chaiHttp);
 
@@ -37,7 +37,7 @@ describe('Login tests', () => {
       const email = 'test@example.com';
       const role = 'admin';
       sinon.stub(JwtService, 'verifyToken').returns({ email, role } as any);
-      sinon.stub(LoginService.prototype, 'getRole').withArgs(email).resolves({ status: 'SUCCESSFUL', data: { role } });
+      sinon.stub(LoginService.prototype, 'fetchUserRole').withArgs(email).resolves({ status: 'SUCCESSFUL', data: { role } });
     
       // act
       const res = await chai.request(app).get('/login/role').set('Authorization', `Bearer ${tokenMock}`);

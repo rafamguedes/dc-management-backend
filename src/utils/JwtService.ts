@@ -1,12 +1,10 @@
-//
 import { sign, verify, JwtPayload } from 'jsonwebtoken';
 
-export default class JwtService {
-  //
+class JwtService {
   private static jwtSecret = process.env.JWT_SECRET || 'secretKey';
 
-  public static createToken(payload: JwtPayload) {
-    return sign(payload, this.jwtSecret, { expiresIn: '3h', algorithm: 'HS256' });
+  public static createToken(payload: JwtPayload): string {
+    return sign(payload, this.jwtSecret, { expiresIn: '1h', algorithm: 'HS256' });
   }
 
   public static verifyToken(token: string) {
@@ -17,3 +15,5 @@ export default class JwtService {
     return authorization.split(' ')[1];
   }
 }
+
+export { JwtService };
