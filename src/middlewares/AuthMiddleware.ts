@@ -19,7 +19,6 @@ class Authenticate {
       const payload = JwtService.verifyToken(token);
       res.locals.user = payload;
     } catch (error) {
-      console.log('Error validating token: ', error);
       return res.status(401).json({ message: INVALID_TOKEN });
     }
 
