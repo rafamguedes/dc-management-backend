@@ -1,6 +1,6 @@
 import SequelizeUser from '../database/models/SequelizeUser';
 import { IUserModel } from '../interfaces/User/IUserModel';
-import { IUser, IUserResponse } from '../interfaces/User/IUser';
+import { IUser, IUserResponse, IUserUpdate } from '../interfaces/User/IUser';
 
 class UserModel implements IUserModel {
   private userModel: typeof SequelizeUser;
@@ -32,6 +32,17 @@ class UserModel implements IUserModel {
   }
 
 
+  public async getById(id: number): Promise<IUser | null> {
+    const user = await this.userModel.findByPk(id, { attributes: { exclude: ['password'] } });
+
+    if (!user) {
+      return null;
+    }
+
+    return user.get();
+  }
+
+
   public async createUser(user: IUser): Promise<IUserResponse | null> {
     const newUser = await this.userModel.create(user);
 
@@ -40,6 +51,27 @@ class UserModel implements IUserModel {
     }
     
     const { password, ...userWithoutPassword } = newUser.get();
+
+    return userWithoutPassword;
+  }
+
+
+  public async updateUser(id: number, user: IUserUpdate): Promise<IUserResponse | null> {
+    const result = await this.userModel.update(user, { where: { id }, returning: true });
+
+    let updatedUser;
+
+    if (Array.isArray(result[1])) {
+      updatedUser = result[1][0];
+    }
+
+    updatedUser = await this.userModel.findByPk(id);
+
+    if (!updatedUser) {
+      return null;
+    }
+
+    const { password, ...userWithoutPassword } = updatedUser.get();
 
     return userWithoutPassword;
   }

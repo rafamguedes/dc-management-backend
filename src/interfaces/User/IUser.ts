@@ -23,5 +23,11 @@ export interface IToken {
   token: string;
 }
 
+export interface IUserUpdate extends Omit<IUser, 'id' | 'password'> {
+  username: string;
+  role: string;
+  email: string;
+}
+
 // User response
 export type IUserResponse = Omit<IUser, 'password'>;

@@ -20,6 +20,11 @@ class UserRoutes {
       (req: Request, res: Response) => this.userController.getAllUsers(req, res),
     );
 
+    this.router.put(
+      '/:id',
+      (req: Request, res: Response) => this.userController.updateUser(req, res),
+    )
+    
     this.router.post(
       '/',
       UserValidator.validateBody,
