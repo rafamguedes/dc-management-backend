@@ -10,7 +10,7 @@ class UserController {
   }
 
 
-  public async getAllUsers(req: Request, res: Response): Promise<Response> {
+  public async getAllUsers(_req: Request, res: Response): Promise<Response> {
     // 
     const { status, data } = await this.userService.getAllUsers();
 

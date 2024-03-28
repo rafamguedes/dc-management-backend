@@ -19,7 +19,7 @@ describe('Integration Login tests', () => {
 
   describe('1.0 - Validate Body Login', () => {
 
-    it('should return 400 if email is not provided', async function() {
+    it('1.1 - should return 400 if email is not provided', async function() {
       // act
       const { status } = await chai.request(app).post('/login').send({ password: '123456' });
 
@@ -27,7 +27,7 @@ describe('Integration Login tests', () => {
       expect(status).to.equal(400);
     });
 
-    it('should return 400 if password is not provided', async function() {
+    it('1.2 - should return 400 if password is not provided', async function() {
       // act
       const { status } = await chai.request(app).post('/login').send({ email: 'rafael@gmail.com' });
 
@@ -35,7 +35,7 @@ describe('Integration Login tests', () => {
       expect(status).to.equal(400);
     });
 
-    it('should return 401 if email is invalid', async function() {
+    it('1.3 - should return 401 if email is invalid', async function() {
       // act
       const { status } = await chai.request(app).post('/login').send({ email: 'rafael@gmail.com', password: '123456' });
 
@@ -43,7 +43,7 @@ describe('Integration Login tests', () => {
       expect(status).to.equal(401);
     });
 
-    it('should return 401 if password is invalid', async function() {
+    it('1.4 - should return 401 if password is invalid', async function() {
       // act
       const { status } = await chai.request(app).post('/login').send({ email: 'rafael@gmail.com', password: '123456' });
 
@@ -52,8 +52,8 @@ describe('Integration Login tests', () => {
     });
   });
 
-  describe('1.1 - Authenticate user', () => {
-    it('should return token and status 200', async function() {
+  describe('2.0 - Authenticate user', () => {
+    it('2.1 - should return token and status 200', async function() {
       // arrange
       sinon.stub(JwtService, 'createToken').returns(tokenMock);
         
@@ -68,7 +68,7 @@ describe('Integration Login tests', () => {
     });
   });
 
-  describe('1.2 - Fetch user role', () => {
+  describe('2.2 - Fetch user role', () => {
     it('should return role and status 200', async function() {
       // arrange
       const email = 'test@example.com';

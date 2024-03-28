@@ -10,13 +10,13 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('1. Integration User tests', () => {
+describe('Integration User tests', () => {
   afterEach(() => {
     sinon.restore();
   });
 
-  describe('1.1. getAllUsers', () => {
-    it('should return all users', async function() {
+  describe('1.1 - getAllUsers', () => {
+    it('1.1.1 - should return all users', async function() {
       // arrange
       sinon.stub(UserModel.prototype, 'getAllUsers').resolves(usersMock as any);
 
@@ -30,7 +30,7 @@ describe('1. Integration User tests', () => {
   });
 
   describe('1.2. validate body registerUser', () => {
-    it('2.1 - should return 400 if email is not provided', async function() {
+    it('1.2.1 - should return 400 if email is not provided', async function() {
       // act
       const { status } = await chai.request(app)
         .post('/user').
@@ -40,7 +40,7 @@ describe('1. Integration User tests', () => {
         expect(status).to.equal(400);
     });
 
-    it('2.2 - should return 400 if password is not provided', async function() {
+    it('1.2.2 - should return 400 if password is not provided', async function() {
       // act
       const { status } = await chai.request(app)
         .post('/user').
@@ -50,7 +50,7 @@ describe('1. Integration User tests', () => {
       expect(status).to.equal(400);
     });
 
-    it('2.3 - should return 400 if name is not provided', async function() {
+    it('1.2.3 - should return 400 if name is not provided', async function() {
       // act
       const { status } = await chai.request(app)
         .post('/user').
@@ -60,7 +60,7 @@ describe('1. Integration User tests', () => {
       expect(status).to.equal(400);
     });
 
-    it('2.4 - should return 400 if email is invalid', async function() {
+    it('1.2.4 - should return 400 if email is invalid', async function() {
       // act
       const { status } = await chai.request(app)
         .post('/user').
@@ -70,7 +70,7 @@ describe('1. Integration User tests', () => {
       expect(status).to.equal(400);
     });
 
-    it('2.5 - should return 400 if password is invalid', async function() {
+    it('1.2.5 - should return 400 if password is invalid', async function() {
       // act
       const { status } = await chai.request(app)
         .post('/user').
@@ -80,7 +80,7 @@ describe('1. Integration User tests', () => {
       expect(status).to.equal(400);
     });
 
-    it('2.6 - should return 400 if name is invalid', async function() {
+    it('1.2.6 - should return 400 if name is invalid', async function() {
       // act
       const { status } = await chai.request(app)
         .post('/user').
@@ -91,8 +91,8 @@ describe('1. Integration User tests', () => {
     });
   });
 
-  describe('1.2. registerUser', () => {
-    it('should return user created', async function() {
+  describe('1.3 - registerUser', () => {
+    it('1.3.1 - should return user created', async function() {
         // arrange
         sinon.stub(UserModel.prototype, 'getByEmail').resolves(null);
         sinon.stub(UserModel.prototype, 'createUser').resolves(userMockCreate as any);
