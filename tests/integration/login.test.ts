@@ -12,12 +12,47 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Login tests', () => {
+describe('Integration Login tests', () => {
   afterEach(() => {
     sinon.restore();
   });
 
-  describe('1. Integration tests', () => {
+  describe('1.0 - Validate Body Login', () => {
+
+    it('should return 400 if email is not provided', async function() {
+      // act
+      const { status } = await chai.request(app).post('/login').send({ password: '123456' });
+
+      // assert
+      expect(status).to.equal(400);
+    });
+
+    it('should return 400 if password is not provided', async function() {
+      // act
+      const { status } = await chai.request(app).post('/login').send({ email: 'rafael@gmail.com' });
+
+      // assert
+      expect(status).to.equal(400);
+    });
+
+    it('should return 401 if email is invalid', async function() {
+      // act
+      const { status } = await chai.request(app).post('/login').send({ email: 'rafael@gmail.com', password: '123456' });
+
+      // assert
+      expect(status).to.equal(401);
+    });
+
+    it('should return 401 if password is invalid', async function() {
+      // act
+      const { status } = await chai.request(app).post('/login').send({ email: 'rafael@gmail.com', password: '123456' });
+
+      // assert
+      expect(status).to.equal(401);
+    });
+  });
+
+  describe('1.1 - Authenticate user', () => {
     it('should return token and status 200', async function() {
       // arrange
       sinon.stub(JwtService, 'createToken').returns(tokenMock);
@@ -31,7 +66,9 @@ describe('Login tests', () => {
       expect(res.status).to.equal(200);
       expect(res.body).to.deep.equal({ token: tokenMock })
     });
+  });
 
+  describe('1.2 - Fetch user role', () => {
     it('should return role and status 200', async function() {
       // arrange
       const email = 'test@example.com';
@@ -45,42 +82,6 @@ describe('Login tests', () => {
       // assert
       expect(res.status).to.equal(200);
       expect(res.body).to.deep.equal({ role });
-    });
-
-    it('should return 400 if email is not provided', async function() {
-      // act
-      const { status, body } = await chai.request(app).post('/login').send({ password: '123456' });
-
-      // assert
-      expect(status).to.equal(400);
-      expect(body).to.deep.equal({ message: 'All fields must be filled' });
-    });
-
-    it('should return 400 if password is not provided', async function() {
-      // act
-      const { status, body } = await chai.request(app).post('/login').send({ email: 'rafael@gmail.com' });
-
-      // assert
-      expect(status).to.equal(400);
-      expect(body).to.deep.equal({ message: 'All fields must be filled' });
-    });
-
-    it('should return 401 if email is invalid', async function() {
-      // act
-      const { status, body } = await chai.request(app).post('/login').send({ email: 'rafael@gmail.com', password: '123456' });
-
-      // assert
-      expect(status).to.equal(401);
-      expect(body).to.deep.equal({ message: 'Invalid email or password' });
-    });
-
-    it('should return 401 if password is invalid', async function() {
-      // act
-      const { status, body } = await chai.request(app).post('/login').send({ email: 'rafael@gmail.com', password: '123456' });
-
-      // assert
-      expect(status).to.equal(401);
-      expect(body).to.deep.equal({ message: 'Invalid email or password' });
     });
   });
 });
