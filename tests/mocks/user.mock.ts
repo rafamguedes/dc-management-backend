@@ -18,19 +18,19 @@ export const userMockCreate = {
 export const usersMock = [
   {
     "id": 1,
-    "username": "Admin",
+    "username": "Gandalf The Grey",
     "role": "admin",
-    "email": "admin@admin.com"
+    "email": "gandalf@admin.com"
   },
   {
     "id": 2,
-    "username": "User",
+    "username": "Theranos Holmes",
     "role": "user",
-    "email": "user@user.com"
+    "email": "theranos@user.com"
   },
   {
     "id": 3,
-    "username": "User",
+    "username": "Batman The Dark Knight",
     "role": "user",
     "email": "@user.com"
   },
