@@ -15,6 +15,12 @@ export const userMockCreate = {
   password: '123456',
 };
 
+export const userMockUpdate = {
+  username: 'Rafael Guedes',
+  role: 'user',
+  email: 'rafael@email.com',
+};
+
 export const usersMock = [
   {
     "id": 1,
