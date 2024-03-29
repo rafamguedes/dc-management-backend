@@ -15,6 +15,7 @@ const FAILED_USER_EXISTS = 'User already exists';
 const FAILED_USER_NOT_FOUND = 'User not found';
 const FAILED_GET_USERS = 'Failed to get users';
 const FAILED_UPDATE = 'Failed to update user';
+const FAILED_DELETE = 'Failed to delete user';
 
 class UserService {
   private userModel: IUserModel;
@@ -70,6 +71,24 @@ class UserService {
     }
 
     return { status: SUCCESSFUL, data: updatedUser };
+  }
+
+
+  public async deleteUser(id: number): Promise<ServiceResponse<boolean>> {
+
+    const userExists = await this.userModel.getById(id);
+
+    if (!userExists) {
+      return { status: NOT_FOUND, data: { message: FAILED_USER_NOT_FOUND } };
+    }
+
+    const deleted = await this.userModel.delete(id);
+
+    if (!deleted) {
+      return { status: INTERNAL_ERROR, data: deleted };
+    }
+
+    return { status: SUCCESSFUL, data: deleted };
   }
 
 

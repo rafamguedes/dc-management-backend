@@ -34,11 +34,20 @@ class UserController {
     const { body } = req;
     const { id } = req.params;
 
-    const { status, data } = await this.userService.updateUser(Number(id), body);
+    const { status, data } = await this.userService.updateUser(+id, body);
 
     return res.status(StatusCode(status)).json(data);
   }
   
+
+  public async deleteUser(req: Request, res: Response): Promise<Response> {
+    //
+    const { id } = req.params;
+
+    const { status, data } = await this.userService.deleteUser(+id);
+
+    return res.status(StatusCode(status)).json(data);
+  }
 }
 
 export { UserController };

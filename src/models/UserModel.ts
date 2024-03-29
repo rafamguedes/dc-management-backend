@@ -14,11 +14,11 @@ class UserModel implements IUserModel {
 
     const users = await this.userModel.findAll({ attributes: { exclude: ['password'] } });
 
-    if (!users) {
-      return null;
-    }
+    if (!users) return null;
 
-    return users.map((user) => user.get());
+    const userList = users.map((user) => user.get());
+
+    return userList;
   }
 
   
@@ -26,9 +26,7 @@ class UserModel implements IUserModel {
 
     const user = await this.userModel.findOne({ where: { email } });
 
-    if (!user) {
-      return null;
-    }
+    if (!user) return null;
 
     return user.get();
   }
@@ -38,9 +36,7 @@ class UserModel implements IUserModel {
 
     const user = await this.userModel.findByPk(id, { attributes: { exclude: ['password'] } });
 
-    if (!user) {
-      return null;
-    }
+    if (!user) return null;
 
     return user.get();
   }
@@ -50,12 +46,9 @@ class UserModel implements IUserModel {
 
     const newUser = await this.userModel.create(user);
 
-    if (!newUser) {
-      return null;
-    }
+    if (!newUser) return null;
     
-    // Omits the password from the response
-    const { password, ...userWithoutPassword } = newUser.get();
+    const { password, ...userWithoutPassword } = newUser.get(); // Omit the password from the response
 
     return userWithoutPassword;
   }
@@ -70,6 +63,16 @@ class UserModel implements IUserModel {
     const updatedUser = await this.getById(id);
 
     return updatedUser;
+  }
+
+
+  public async delete(id: number): Promise<boolean> {
+
+    const destroyUser = await this.userModel.destroy({ where: { id } });
+
+    if (!destroyUser) return false;
+
+    return true;
   }
 
 }

@@ -7,4 +7,5 @@ export interface IUserModel {
   getById(id: IUser['id']): Promise<IUser | null>;
   create(user: IUser): Promise<IUserResponse | null>;
   update(id: IUser['id'], user: IUserUpdate): Promise<IUserResponse | null>;
+  delete(id: IUser['id']): Promise<boolean>;
 }
