@@ -1,3 +1,3 @@
-# User Service - Full Stack App
+# User Service Module
 
 Under construction...
