@@ -20,6 +20,7 @@ class LoginService {
 
 
   public async authenticateUser({ email, password }: ILogin): Promise<ServiceResponse<IToken>> {
+
     const user = await this.userModel.getByEmail(email);
 
     if (!user || !bcrypt.compareSync(password, user.password)) {
@@ -37,6 +38,7 @@ class LoginService {
   
 
   public async fetchUserRole(email: string): Promise<ServiceResponse<IUserRole>> {
+    
     const user = await this.userModel.getByEmail(email);
 
     if (!user) {
@@ -45,6 +47,7 @@ class LoginService {
 
     return { status: SUCCESSFUL, data: { role: user.role } };
   }
+  
 }
 
 export { LoginService };
