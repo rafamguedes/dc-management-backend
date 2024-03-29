@@ -15,7 +15,6 @@ const FAILED_USER_EXISTS = 'User already exists';
 const FAILED_USER_NOT_FOUND = 'User not found';
 const FAILED_GET_USERS = 'Failed to get users';
 const FAILED_UPDATE = 'Failed to update user';
-const FAILED_DELETE = 'Failed to delete user';
 
 class UserService {
   private userModel: IUserModel;
