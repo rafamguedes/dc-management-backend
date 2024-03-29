@@ -28,11 +28,14 @@ class UserRoutes {
 
     this.router.put(
       '/:id',
+      UserValidator.validateParams,
+      UserValidator.validateUpdateBody,
       (req: Request, res: Response) => this.userController.updateUser(req, res),
     )
 
     this.router.delete(
       '/:id',
+      UserValidator.validateParams,
       (req: Request, res: Response) => this.userController.deleteUser(req, res),
     )
   }

@@ -1,30 +1,46 @@
 import * as Joi from 'joi';
 import { Request, Response, NextFunction } from 'express';
+import { bodySchema, paramsSchema, bodyEditSchema } from './schemas/UserSchemas';
+
+// Constant
+const INVALID_VALUE = 'INVALID_VALUE';
 
 class UserValidator {
-  // Define the schema for the user object
-  private static userSchema: Joi.Schema = Joi.object({
-    username: Joi.string().min(8).required().messages({
-      'string.min': '"username" length must be at least 8 characters long',
-    }),
-    role: Joi.string().valid('admin', 'user').required().messages({
-      'string.base': '"role" must be a string',
-      'any.only': '"role" must be "admin" or "user"',
-    }),
-    email: Joi.string().email().required().messages({
-      'string.email': '"email" must be a valid email',
-    }),
-    password: Joi.string().min(6).required().messages({
-      'string.min': '"password" length must be at least 6 characters long',
-    }),
-  });
-
+  
   public static validateBody(req: Request, res: Response, next: NextFunction): void | Response {
-    //
-    const { error }: Joi.ValidationResult = UserValidator.userSchema.validate(req.body);
+
+    const { username, role, email, password } = req.body;
+
+    const { error }: Joi.ValidationResult = bodySchema.validate({ username, role, email, password });
 
     if (error) {
-      return res.status(400).json({ status: 'INVALID_VALUE', message: error.details[0].message });
+      return res.status(400).json({ status: INVALID_VALUE, message: error.details[0].message });
+    }
+
+    next();
+  }
+
+
+  public static validateParams(req: Request, res: Response, next: NextFunction): void | Response {
+
+    const { error }: Joi.ValidationResult = paramsSchema.validate({ id: req.params.id });
+
+    if (error) {
+      return res.status(400).json({ status: INVALID_VALUE, message: error.details[0].message });
+    }
+
+    next();
+  }
+
+
+  public static validateUpdateBody(req: Request, res: Response, next: NextFunction): void | Response {
+
+    const { username, role, email } = req.body;
+
+    const { error }: Joi.ValidationResult = bodyEditSchema.validate({ username, role, email });
+
+    if (error) {
+      return res.status(400).json({ status: INVALID_VALUE, message: error.details[0].message });
     }
 
     next();
