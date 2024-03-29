@@ -19,6 +19,8 @@ InferCreationAttributes<SequelizeUser>> {
   declare email: string;
 
   declare password: string;
+
+  declare image: string;
 }
 
 SequelizeUser.init({
@@ -45,6 +47,9 @@ SequelizeUser.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
+  image: {
+    type: DataTypes.STRING,
+  }
 }, {
   sequelize: db,
   modelName: 'users',

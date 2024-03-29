@@ -48,7 +48,7 @@ class UserModel implements IUserModel {
 
     if (!newUser) return null;
     
-    const { password, ...userWithoutPassword } = newUser.get(); // Omit the password from the response
+    const { password, ...userWithoutPassword } = newUser.get();
 
     return userWithoutPassword;
   }

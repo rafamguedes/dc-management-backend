@@ -11,7 +11,8 @@ Content-Type: application/json
   "username": "Jonas Pe de Pano",
   "email": "jonas@email.com",
   "password": "123456",
-  "role": "user"
+  "role": "user",
+  "image": "https://rickandmortyapi.com/api/character/avatar/2.jpeg"
 }
 
 ### Update User
@@ -21,7 +22,8 @@ Content-Type: application/json
 {
   "username": "José Dimas Santos",
   "email": "jose_dimas@sada.com",
-  "role": "admin"
+  "role": "admin",
+  "image": "https://rickandmortyapi.com/api/character/avatar/2.jpeg"
 }
 
 ### Delete User

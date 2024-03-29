@@ -11,6 +11,7 @@ export interface ILogin {
 export interface IUser extends Identifiable, ILogin {
   username: string;
   role: string;
+  image: string;
 }
 
 // User role
@@ -27,6 +28,7 @@ export interface IUserUpdate extends Omit<IUser, 'id' | 'password'> {
   username: string;
   role: string;
   email: string;
+  image: string;
 }
 
 // User response

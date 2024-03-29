@@ -9,9 +9,9 @@ class UserValidator {
   
   public static validateBody(req: Request, res: Response, next: NextFunction): void | Response {
 
-    const { username, role, email, password } = req.body;
+    const { username, role, email, password, image } = req.body;
 
-    const { error }: Joi.ValidationResult = bodySchema.validate({ username, role, email, password });
+    const { error }: Joi.ValidationResult = bodySchema.validate({ username, role, email, password, image });
 
     if (error) {
       return res.status(400).json({ status: INVALID_VALUE, message: error.details[0].message });
@@ -35,9 +35,9 @@ class UserValidator {
 
   public static validateUpdateBody(req: Request, res: Response, next: NextFunction): void | Response {
 
-    const { username, role, email } = req.body;
+    const { username, role, email, image } = req.body;
 
-    const { error }: Joi.ValidationResult = bodyEditSchema.validate({ username, role, email });
+    const { error }: Joi.ValidationResult = bodyEditSchema.validate({ username, role, email, image });
 
     if (error) {
       return res.status(400).json({ status: INVALID_VALUE, message: error.details[0].message });

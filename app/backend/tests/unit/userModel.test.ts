@@ -106,8 +106,15 @@ describe('Unit Tests User Model', () => {
   describe('1.7 - updateUser', () => {
     it('1.7 - should update a user', async () => {
       // arrange
-      const updatedUser = { id: 1, username: 'Admin', email: 'admin@admin.com', role: 'admin' };
-      sinon.stub(SequelizeUser, 'update').returns([1, [userMockUpdate]] as any);
+      const updatedUser = {
+        id: 1,
+        username: 'Admin',
+        email: 'admin@admin.com',
+        role: 'admin',
+        image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg'
+      };
+      
+      sinon.stub(SequelizeUser, 'update').returns([1, [updatedUser]] as any);
 
       // act
       const userModel = new UserModel();
