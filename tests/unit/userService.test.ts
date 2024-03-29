@@ -13,7 +13,7 @@ describe('Unit Tests UserService', () => {
   describe('1.1 - getAllUsers', () => {
     it('1.1 - should get all users', async () => {
       // Arrange
-      sinon.stub(UserModel.prototype, 'getAllUsers').returns(usersMock as any);
+      sinon.stub(UserModel.prototype, 'getAll').returns(usersMock as any);
 
       // Act
       const userService = new UserService(new UserModel());
@@ -25,7 +25,7 @@ describe('Unit Tests UserService', () => {
 
     it('1.2 - should failed to get all users', async () => {
       // Arrange
-      sinon.stub(UserModel.prototype, 'getAllUsers').returns(null as any);
+      sinon.stub(UserModel.prototype, 'getAll').returns(null as any);
 
       // Act
       const userService = new UserService(new UserModel());
@@ -41,7 +41,7 @@ describe('Unit Tests UserService', () => {
     it('1.3 - should register a user', async () => {
       // Arrange
       sinon.stub(UserModel.prototype, 'getByEmail').returns(Promise.resolve(null));
-      sinon.stub(UserModel.prototype, 'createUser').returns(userMockUpdate as any);
+      sinon.stub(UserModel.prototype, 'create').returns(userMockUpdate as any);
       sinon.stub(bcrypt, 'hashSync').returns('hashedpassword');
 
       // Act
@@ -68,7 +68,7 @@ describe('Unit Tests UserService', () => {
     it('1.5 - should failed to register a user', async () => {
       // Arrange
       sinon.stub(UserModel.prototype, 'getByEmail').returns(Promise.resolve(null));
-      sinon.stub(UserModel.prototype, 'createUser').returns(null as any);
+      sinon.stub(UserModel.prototype, 'create').returns(null as any);
 
       // Act
       const userService = new UserService(new UserModel());
@@ -84,7 +84,7 @@ describe('Unit Tests UserService', () => {
     it('1.6.1 - should return user updated', async function() {
       // arrange
       sinon.stub(UserModel.prototype, 'getById').resolves(userMockUpdate as any);
-      sinon.stub(UserModel.prototype, 'updateUser').resolves(userMockUpdate as any);
+      sinon.stub(UserModel.prototype, 'update').resolves(userMockUpdate as any);
 
       // act
       const userService = new UserService(new UserModel());
@@ -103,14 +103,14 @@ describe('Unit Tests UserService', () => {
       const user = await userService.updateUser(1, userMockUpdate as any);
 
       // assert
-      expect(user.status).to.eql('INTERNAL_ERROR');
-      expect(user.data).to.eql({ message: 'User already exists' });
+      expect(user.status).to.eql('NOT_FOUND');
+      expect(user.data).to.eql({ message: 'User not found' });
     });
 
     it('1.6.3 - should return failed to update user', async function() {
       // arrange
       sinon.stub(UserModel.prototype, 'getById').resolves(userMockUpdate as any);
-      sinon.stub(UserModel.prototype, 'updateUser').resolves(null as any);
+      sinon.stub(UserModel.prototype, 'update').resolves(null as any);
 
       // act
       const userService = new UserService(new UserModel());

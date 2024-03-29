@@ -10,7 +10,8 @@ class UserModel implements IUserModel {
   }
 
 
-  public async getAllUsers(): Promise<IUser[] | null> {
+  public async getAll(): Promise<IUser[] | null> {
+
     const users = await this.userModel.findAll({ attributes: { exclude: ['password'] } });
 
     if (!users) {
@@ -22,6 +23,7 @@ class UserModel implements IUserModel {
 
   
   public async getByEmail(email: string): Promise<IUser | null> {
+
     const user = await this.userModel.findOne({ where: { email } });
 
     if (!user) {
@@ -33,6 +35,7 @@ class UserModel implements IUserModel {
 
 
   public async getById(id: number): Promise<IUser | null> {
+
     const user = await this.userModel.findByPk(id, { attributes: { exclude: ['password'] } });
 
     if (!user) {
@@ -43,37 +46,30 @@ class UserModel implements IUserModel {
   }
 
 
-  public async createUser(user: IUser): Promise<IUserResponse | null> {
+  public async create(user: IUser): Promise<IUserResponse | null> {
+
     const newUser = await this.userModel.create(user);
 
     if (!newUser) {
       return null;
     }
     
+    // Omits the password from the response
     const { password, ...userWithoutPassword } = newUser.get();
 
     return userWithoutPassword;
   }
 
 
-  public async updateUser(id: number, user: IUserUpdate): Promise<IUserResponse | null> {
-    const result = await this.userModel.update(user, { where: { id }, returning: true });
+  public async update(id: number, user: IUserUpdate): Promise<IUserResponse | null> {
 
-    let updatedUser;
+    const userUpdate = await this.userModel.update({ ...user }, { where: { id } });
 
-    if (Array.isArray(result[1])) {
-      updatedUser = result[1][0];
-    }
+    if (!userUpdate) return null;
 
-    updatedUser = await this.userModel.findByPk(id);
+    const updatedUser = await this.getById(id);
 
-    if (!updatedUser) {
-      return null;
-    }
-
-    const { password, ...userWithoutPassword } = updatedUser.get();
-
-    return userWithoutPassword;
+    return updatedUser;
   }
 
 }

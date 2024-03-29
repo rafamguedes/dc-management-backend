@@ -22,7 +22,7 @@ describe('Unit Tests User Model', () => {
       
       // act
       const userModel = new UserModel();
-      const users = await userModel.getAllUsers();
+      const users = await userModel.getAll();
 
       expect(users).to.eql(usersMock);
     });
@@ -59,7 +59,7 @@ describe('Unit Tests User Model', () => {
 
       // act
       const userModel = new UserModel();
-      const user = await userModel.createUser(userMockCreate as any);
+      const user = await userModel.create(userMockCreate as any);
 
       // assert
       const { password, ...userWithoutPassword } = userMockCreate;
@@ -72,7 +72,7 @@ describe('Unit Tests User Model', () => {
 
       // act
       const userModel = new UserModel();
-      const users = await userModel.getAllUsers();
+      const users = await userModel.getAll();
 
       // assert
       expect(users).to.eql(null);
@@ -96,7 +96,7 @@ describe('Unit Tests User Model', () => {
 
       // act
       const userModel = new UserModel();
-      const user = await userModel.createUser(userMockCreate as any);
+      const user = await userModel.create(userMockCreate as any);
 
       // assert
       expect(user).to.eql(null);
@@ -106,12 +106,12 @@ describe('Unit Tests User Model', () => {
   describe('1.7 - updateUser', () => {
     it('1.7 - should update a user', async () => {
       // arrange
-      const updatedUser = { id: 1, username: 'Admin', email: 'rafael@email.com', role: 'admin' };
+      const updatedUser = { id: 1, username: 'Admin', email: 'admin@admin.com', role: 'admin' };
       sinon.stub(SequelizeUser, 'update').returns([1, [userMockUpdate]] as any);
 
       // act
       const userModel = new UserModel();
-      const user = await userModel.updateUser(1, userMockUpdate as any);
+      const user = await userModel.update(1, userMockUpdate as any);
 
       // assert
       expect(user).to.deep.equal(updatedUser);
@@ -123,7 +123,7 @@ describe('Unit Tests User Model', () => {
 
       // act
       const userModel = new UserModel();
-      const user = await userModel.updateUser(0, userMockUpdate as any);
+      const user = await userModel.update(0, userMockUpdate as any);
 
       // assert
       expect(user).to.eql(null);

@@ -7,11 +7,13 @@ import { UserModel } from '../models/UserModel';
 // Constants for Service
 const SALT_ROUNDS = 10;
 const CONFLICT = 'CONFLICT';
+const NOT_FOUND = 'NOT_FOUND';
 const SUCCESSFUL = 'SUCCESSFUL';
 const INTERNAL_ERROR = 'INTERNAL_ERROR';
-const FAILED_USER_EXISTS = 'User already exists';
-const FAILED_GET_USERS = 'Failed to get users';
 const FAILED_REGISTER = 'Failed to register user';
+const FAILED_USER_EXISTS = 'User already exists';
+const FAILED_USER_NOT_FOUND = 'User not found';
+const FAILED_GET_USERS = 'Failed to get users';
 const FAILED_UPDATE = 'Failed to update user';
 
 class UserService {
@@ -23,7 +25,8 @@ class UserService {
 
 
   public async getAllUsers(): Promise<ServiceResponse<IUser[]>> {
-    const users = await this.userModel.getAllUsers();
+
+    const users = await this.userModel.getAll();
 
     if (!users) {
       return { status: INTERNAL_ERROR, data: { message: FAILED_GET_USERS } };
@@ -34,6 +37,7 @@ class UserService {
   
 
   public async registerUser(user: IUser): Promise<ServiceResponse<IUserResponse>> {
+
     const existingUser = await this.userModel.getByEmail(user.email);
 
     if (existingUser) {
@@ -41,7 +45,7 @@ class UserService {
     }
 
     const passwordHash = await this.hashPassword(user.password);
-    const newUser = await this.userModel.createUser({ ...user, password: passwordHash });
+    const newUser = await this.userModel.create({ ...user, password: passwordHash });
 
     if (!newUser) {
       return { status: INTERNAL_ERROR, data: { message: FAILED_REGISTER } };
@@ -50,15 +54,16 @@ class UserService {
     return { status: SUCCESSFUL, data: newUser };
   }
 
+  
   public async updateUser(id: number, user: IUserUpdate): Promise<ServiceResponse<IUserResponse>> {
 
     const userExists = await this.userModel.getById(id);
 
     if (!userExists) {
-      return { status: INTERNAL_ERROR, data: { message: FAILED_USER_EXISTS } };
+      return { status: NOT_FOUND, data: { message: FAILED_USER_NOT_FOUND } };
     }
 
-    const updatedUser = await this.userModel.updateUser(id, user);
+    const updatedUser = await this.userModel.update(id, user);
 
     if (!updatedUser) {
       return { status: INTERNAL_ERROR, data: { message: FAILED_UPDATE } };

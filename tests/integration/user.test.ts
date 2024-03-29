@@ -18,7 +18,7 @@ describe('Integration User tests', () => {
   describe('1.1 - getAllUsers', () => {
     it('1.1.1 - should return all users', async function() {
       // arrange
-      sinon.stub(UserModel.prototype, 'getAllUsers').resolves(usersMock as any);
+      sinon.stub(UserModel.prototype, 'getAll').resolves(usersMock as any);
 
       // act
       const res = await chai.request(app).get('/user');
@@ -95,7 +95,7 @@ describe('Integration User tests', () => {
     it('1.3.1 - should return user created', async function() {
         // arrange
         sinon.stub(UserModel.prototype, 'getByEmail').resolves(null);
-        sinon.stub(UserModel.prototype, 'createUser').resolves(userMockCreate as any);
+        sinon.stub(UserModel.prototype, 'create').resolves(userMockCreate as any);
 
         // act
         const res = await chai.request(app).post('/user').send(userMockCreate);
@@ -110,7 +110,7 @@ describe('Integration User tests', () => {
     it('1.4.1 - should return user updated', async function() {
       // arrange
       sinon.stub(UserModel.prototype, 'getById').resolves(userMockUpdate as any);
-      sinon.stub(UserModel.prototype, 'updateUser').resolves(userMockUpdate as any);
+      sinon.stub(UserModel.prototype, 'update').resolves(userMockUpdate as any);
 
       // act
       const res = await chai.request(app).put('/user/1').send(userMockUpdate);
@@ -120,7 +120,7 @@ describe('Integration User tests', () => {
       expect(res.body).to.deep.equal(userMockUpdate);
     });
 
-    it('1.4.2 - should return 500 if user does not exist', async function() {
+    it('1.4.2 - should return 404 if user does not exist', async function() {
       // arrange
       sinon.stub(UserModel.prototype, 'getById').resolves(null);
 
@@ -128,7 +128,7 @@ describe('Integration User tests', () => {
       const res = await chai.request(app).put('/user/1').send(userMockUpdate);
 
       // assert
-      expect(res.status).to.equal(500);
+      expect(res.status).to.equal(404);
     });
   });
 });
