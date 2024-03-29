@@ -1,15 +1,16 @@
 import * as bcrypt from 'bcrypt';
 import { UserModel } from '../models/UserModel';
 import { JwtService } from '../utils/JwtService';
-import { IUserModel } from '../interfaces/User/IUserModel';
 import { ServiceResponse } from '../utils/ServiceResponse';
+import { IUserModel } from '../interfaces/User/IUserModel';
 import { ILogin, IUserRole, IToken } from '../interfaces/User/IUser';
 
+// Constants for the service response
+const SUCCESSFUL = 'SUCCESSFUL';
 const UNAUTHORIZED = 'UNAUTHORIZED';
 const INTERNAL_ERROR = 'INTERNAL_ERROR';
-const SUCCESSFUL = 'SUCCESSFUL';
+const ERROR_CREATE_TOKEN = 'Error creating token';
 const INVALID_CREDENTIALS_MESSAGE = 'Invalid email or password';
-const INTERNAL_ERROR_MESSAGE = 'Internal error!';
 
 class LoginService {
   private userModel: IUserModel;
@@ -17,7 +18,7 @@ class LoginService {
   constructor(userModel: IUserModel = new UserModel()) {
     this.userModel = userModel;
   }
-
+  
 
   public async authenticateUser({ email, password }: ILogin): Promise<ServiceResponse<IToken>> {
 
@@ -30,7 +31,7 @@ class LoginService {
     const token = JwtService.createToken({ id: user.id, email: user.email });
 
     if (!token) {
-      return { status: INTERNAL_ERROR, data: { message: INTERNAL_ERROR_MESSAGE } };
+      return { status: INTERNAL_ERROR, data: { message: ERROR_CREATE_TOKEN } };
     }
 
     return { status: SUCCESSFUL, data: { token } };
@@ -47,7 +48,7 @@ class LoginService {
 
     return { status: SUCCESSFUL, data: { role: user.role } };
   }
-  
+
 }
 
 export { LoginService };

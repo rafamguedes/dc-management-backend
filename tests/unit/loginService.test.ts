@@ -38,7 +38,7 @@ describe('Unit Tests LoginService', () => {
 
     // Assert
     expect(response.status).to.eql('INTERNAL_ERROR');
-    expect(response.data).to.eql({ message: 'Internal error!' });
+    expect(response.data).to.eql({ message: 'Error creating token' });
   });
 
   it('1.3 - should not authenticate a user with invalid credentials', async () => {
