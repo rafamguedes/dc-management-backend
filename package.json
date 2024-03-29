@@ -8,7 +8,7 @@
     "compose:down": "cd app/backend && docker-compose down --remove-orphans",
     "dev": "cd app/frontend && npm run dev"
   },
-  "keywords": ["nodejs", "express", "rest", "api"],
+  "keywords": ["nodejs", "express", "rest", "api", "docker", "docker-compose"],
   "author": "Rafael Magalhães Guedes",
   "license": "ISC"
 }
