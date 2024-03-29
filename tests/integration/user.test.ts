@@ -131,5 +131,31 @@ describe('Integration User tests', () => {
       expect(res.status).to.equal(404);
     });
   });
+
+  describe('1.5 - deleteUser', () => {
+    it('1.5.1 - should return true if user was deleted', async function() {
+      // arrange
+      sinon.stub(UserModel.prototype, 'getById').resolves(userMockUpdate as any);
+      sinon.stub(UserModel.prototype, 'delete').resolves(true);
+
+      // act
+      const res = await chai.request(app).delete('/user/1');
+
+      // assert
+      expect(res.status).to.equal(200);
+      expect(res.body).to.equal(true);
+    });
+
+    it('1.5.2 - should return 404 if user does not exist', async function() {
+      // arrange
+      sinon.stub(UserModel.prototype, 'getById').resolves(null);
+
+      // act
+      const res = await chai.request(app).delete('/user/1');
+
+      // assert
+      expect(res.status).to.equal(404);
+    });
+  });
 });
 

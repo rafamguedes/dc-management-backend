@@ -158,4 +158,42 @@ describe('Unit Tests User Model', () => {
       expect(user).to.eql(null);
     });
   });
+
+  describe('1.11 - deleteUser', () => {
+    it('1.11 - should delete a user', async () => {
+      // arrange
+      sinon.stub(SequelizeUser, 'destroy').returns(1 as any);
+
+      // act
+      const userModel = new UserModel();
+      const user = await userModel.delete(1);
+
+      // assert
+      expect(user).to.equal(true);
+    });
+
+    it('1.12 - should return false when there are no user deleted', async () => {
+      // arrange
+      sinon.stub(SequelizeUser, 'destroy').returns(0 as any);
+
+      // act
+      const userModel = new UserModel();
+      const user = await userModel.delete(0);
+
+      // assert
+      expect(user).to.equal(false);
+    });
+
+    it('1.13 - should return null when there are no user by id', async () => {
+      // arrange
+      sinon.stub(SequelizeUser, 'findByPk').returns(null as any);
+
+      // act
+      const userModel = new UserModel();
+      const user = await userModel.getById(usersMock[0].id);
+
+      // assert
+      expect(user).to.eql(null);
+    });
+  });
 });
