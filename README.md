@@ -57,6 +57,6 @@ Get user role
 
 Tests de integração
 
-![Tests](./screenshots/tests.png)
+![Tests](./screenshots/coverage_tests.png)
 
 
