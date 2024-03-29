@@ -1,0 +1,13 @@
+{
+  "name": "userservice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compose:up": "cd app/backend && docker-compose up -d --build",
+    "compose:down": "cd app/backend && docker-compose down --remove-orphans"
+  },
+  "keywords": ["nodejs", "express", "rest", "api"],
+  "author": "Rafael Magalhães Guedes",
+  "license": "ISC"
+}
