@@ -4,6 +4,7 @@ export type User = {
   email: string;
   password: string;
   role: string;
+  image: string;
 };
 
 export type UserCreate = {
@@ -11,10 +12,12 @@ export type UserCreate = {
   email: string;
   password: string;
   role: string;
+  image: string;
 };
 
 export type UserUpdate = {
   username: string;
   email: string;
   role: string;
+  image: string;
 };

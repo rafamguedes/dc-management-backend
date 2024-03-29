@@ -34,9 +34,10 @@ export function Dashboard() {
       </header>
       <div className="Users">
         {users.map((user: User) => (
-          <div key={user.id}>
-            <h2>{user.username}</h2>
-            <p>{user.email}</p>
+          <div key={ user.id }>
+            <img src={ user.image } alt={ user.username } />
+            <h2>{ user.username }</h2>
+            <p>{ user.email }</p>
           </div>
         ))}
       </div>
