@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import UserService from '../../services/UserService';
 import { useNavigate } from 'react-router';
+import { Container, Main } from './Style';
+import IconLogin from '../../assets/images/userIcon.svg';
+import { FaKey, FaUser } from 'react-icons/fa';
 
 export function Login() {
   const [email, setEmail] = useState('');
@@ -24,26 +27,34 @@ export function Login() {
   };
 
   return (
-    <form onSubmit={ handleSubmit }>
-      <label>
-        Email:
-        <input
-          type="text"
-          value={ email }
-          onChange={ (e) => setEmail(e.target.value) }
-          required
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          value={ password }
-          onChange={ (e) => setPassword(e.target.value) }
-          required
-        />
-      </label>
-      <button type="submit">Login</button>
-    </form>
+    <Container>
+      <Main>
+        <img src={ IconLogin } alt="Login" />
+        <h1>Login</h1>
+        <form onSubmit={ handleSubmit }>
+          <div>
+            <FaUser className="icon" />
+            <input
+              type="text"
+              value={ email }
+              onChange={ (e) => setEmail(e.target.value) }
+              required
+              placeholder='Email'
+            />
+          </div>
+          <div>
+            <FaKey className="icon" />
+            <input
+              type="password"
+              value={ password }
+              onChange={ (e) => setPassword(e.target.value) }
+              required
+              placeholder='Password'
+            />
+          </div>
+          <button type="submit">Sign in</button>
+        </form>
+      </Main>
+    </Container>
   );
 }
