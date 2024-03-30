@@ -14,13 +14,14 @@ import {
   Icons,
   Main,
   Menu,
-  NavBar, Search, Section, SectionTable, Table, Title, UserInfo } from './Style';
+  NavBar, NotFound, Search, Section, SectionTable, Table, Title, UserInfo } from './Style';
 
 
 export function Dashboard() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<User[]>([]);
+  const [allUsers, setAllUsers] = useState<User[]>([]);
   const [editedRole, setEditedRole] = useState('');
   const [editingId, setEditingId] = useState<number | null>(null);
   const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -30,6 +31,7 @@ export function Dashboard() {
       try {
         const response = await ApiService.getUsers();
         setUsers(response.data);
+        setAllUsers(response.data);
         setLoading(false);
       } catch (error) {
         console.error('Failed to fetch users:', error);
@@ -38,6 +40,16 @@ export function Dashboard() {
 
     handleFetch();
   }, []);
+
+  const handleSearch = async (search: string) => {
+    try {
+      const searchResult = allUsers.filter((user) =>
+        user.username.toLowerCase().includes(search.toLowerCase()));
+      setUsers(searchResult);
+    } catch (error) {
+      console.error('Failed to search users:', error);
+    }
+  };
 
   const handleEdit = (id: number, role: string) => {
     setEditingId(id);
@@ -134,12 +146,16 @@ export function Dashboard() {
               <h1>Dashboard</h1>
             </Title>
             <Search>
-              <input type="text" placeholder="Search" />
+              <input
+                type="text"
+                placeholder="Search"
+                onChange={ (e) => handleSearch(e.target.value) }
+              />
               <FaSearch size={ 25 } />
             </Search>
             <Icons>
-              <FaGithub size={ 30 } />
-              <FaLinkedinIn size={ 30 } />
+              <FaGithub size={ 25 } />
+              <FaLinkedinIn size={ 25 } />
             </Icons>
           </Header>
           <SectionTable>
@@ -188,12 +204,14 @@ export function Dashboard() {
                     </td>
                   </tr>
                 ))}
-                {loading ?
-                  <h1>Loading...</h1>
-                  : users.length === 0 && <h1>No users found</h1>
-                }
               </tbody>
             </Table>
+            <NotFound>
+              {loading ?
+                <h1>Loading...</h1>
+                : users.length === 0 && <h1>No users found</h1>
+              }
+            </NotFound>
           </SectionTable>
         </Section>
       </Main>

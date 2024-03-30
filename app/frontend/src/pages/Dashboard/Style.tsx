@@ -152,7 +152,7 @@ export const Header = styled.header`
   align-items: center;
   width: 100%;
   height: 10vh;
-  padding: 1rem;
+  padding: 1rem 0;
   background-color: #1F2631;
   color: #fff;
 `;
@@ -182,6 +182,10 @@ export const Search = styled.div`
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 7px;
+  }
+
+  input:focus {
+    outline: none;
   }
 
   @media (max-width: 768px) {
@@ -287,5 +291,21 @@ export const Table = styled.table`
     button {
       padding: 1rem;
     }
+  }
+`;
+
+export const NotFound = styled.div`
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #ccc;
+
+  h1 {
+    font-size: 1.5rem;
+    color: #ccc;
+    text-align: center;
   }
 `;
