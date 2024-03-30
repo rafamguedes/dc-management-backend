@@ -3,18 +3,15 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { User } from '../../types/UserTypes';
 import ApiService from '../../services/UserService';
-import { FaGithub, FaLinkedinIn, FaSearch, FaUserPlus } from 'react-icons/fa';
+import { FaGithub, FaLinkedinIn, FaSearch } from 'react-icons/fa';
 import IconEdit from '../../assets/images/iconEdit.svg';
 import IconDelete from '../../assets/images/iconDelete.svg';
-import { FaHouse } from 'react-icons/fa6';
+import NavBarSide from '../../components/NavBar/NavBarSide';
 import {
   Container,
-  Footer,
   Header,
   Icons,
-  Main,
-  Menu,
-  NavBar, NotFound, Search, Section, SectionTable, Table, Title, UserInfo } from './Style';
+  Main, NotFound, Search, Section, SectionTable, Table, Title } from './Style';
 
 
 export function Dashboard() {
@@ -119,27 +116,7 @@ export function Dashboard() {
   return (
     <Container>
       <Main>
-        <NavBar>
-          <UserInfo>
-            {user && (
-              <div>
-                <img src={user.image} alt={user.username} />
-                <h2>{user.username}</h2>
-                <p>{user.email}</p>
-                <button onClick={ () => handleLogout()}>Logout</button>
-              </div>
-            )}
-          </UserInfo>
-          <Menu>
-            <ul>
-              <li><FaHouse size={ 20 } /> Dashboard</li>
-              <li><FaUserPlus size={ 20 } /> Create User</li>
-            </ul>
-          </Menu>
-          <Footer>
-            <p>Developed by Rafael Guedes</p>
-          </Footer>
-        </NavBar>
+        <NavBarSide user={ user } handleLogout={ handleLogout } />
         <Section>
           <Header>
             <Title>
@@ -154,8 +131,8 @@ export function Dashboard() {
               <FaSearch size={ 25 } />
             </Search>
             <Icons>
-              <FaGithub size={ 25 } />
               <FaLinkedinIn size={ 25 } />
+              <FaGithub size={ 25 } />
             </Icons>
           </Header>
           <SectionTable>
