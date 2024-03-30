@@ -37,17 +37,17 @@ export const paramsSchema: Joi.Schema = Joi.object({
 });
 
 export const bodyEditSchema: Joi.Schema = Joi.object({
-  username: Joi.string().min(8).required().messages({
+  username: Joi.string().min(8).messages({
     'string.min': '"username" length must be at least 8 characters long',
     'string.base': '"username" must be a string',
     'string.empty': '"username" is not allowed to be empty',
   }),
-  role: Joi.string().valid('admin', 'user').required().messages({
+  role: Joi.string().valid('admin', 'user').messages({
     'string.base': '"role" must be a string',
     'any.only': '"role" must be "admin" or "user"',
     'string.empty': '"role" is not allowed to be empty',
   }),
-  email: Joi.string().email().required().messages({
+  email: Joi.string().email().messages({
     'string.email': '"email" must be a valid email',
     'string.base': '"email" must be a string',
     'string.empty': '"email" is not allowed to be empty',
