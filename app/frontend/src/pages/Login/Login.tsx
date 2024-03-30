@@ -1,20 +1,25 @@
+import Swal from 'sweetalert2';
 import React, { useState } from 'react';
-import UserService from '../../services/UserService';
-import { useNavigate } from 'react-router';
 import { Container, Main } from './Style';
-import IconLogin from '../../assets/images/userIcon.svg';
-import { FaKey, FaUser } from 'react-icons/fa';
+import { useNavigate } from 'react-router';
 import { User } from '../../types/UserTypes';
+import { FaKey, FaUser } from 'react-icons/fa';
+import UserService from '../../services/UserService';
+import IconLogin from '../../assets/images/userIcon.svg';
+import { Loading } from '../../components/Loading/Loading';
 
 export function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
+      setLoading(true);
+
       const { token } = await UserService.login({ email, password });
 
       const user = await UserService.getUsers();
@@ -28,9 +33,27 @@ export function Login() {
 
       navigate('/dashboard');
     } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Invalid Email or password!',
+        showConfirmButton: false,
+        timer: 1500,
+      });
       console.error('Failed to login:', error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <Container>
+        <Main>
+          <Loading />
+        </Main>
+      </Container>
+    );
+  }
 
   return (
     <Container>
