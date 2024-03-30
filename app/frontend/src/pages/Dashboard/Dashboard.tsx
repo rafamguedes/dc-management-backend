@@ -3,11 +3,19 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { User } from '../../types/UserTypes';
 import ApiService from '../../services/UserService';
-import { Container, Footer, Header, Icons, Main, Menu, NavBar, Search, Section, SectionTable, Table, Title, UserInfo } from './Style';
 import { FaGithub, FaLinkedinIn, FaSearch, FaUserPlus } from 'react-icons/fa';
 import IconEdit from '../../assets/images/iconEdit.svg';
 import IconDelete from '../../assets/images/iconDelete.svg';
 import { FaHouse } from 'react-icons/fa6';
+import {
+  Container,
+  Footer,
+  Header,
+  Icons,
+  Main,
+  Menu,
+  NavBar, Search, Section, SectionTable, Table, Title, UserInfo } from './Style';
+
 
 export function Dashboard() {
   const navigate = useNavigate();
@@ -165,7 +173,8 @@ export function Dashboard() {
                     <td>{ user.email }</td>
                     <td>
                     <button
-                      onClick={ () => editingId === +user.id ? handleUpdate(+user.id) : handleEdit(+user.id, user.role) }
+                      onClick={ () => editingId === +user.id ?
+                        handleUpdate(+user.id) : handleEdit(+user.id, user.role) }
                     >
                       <img src={ editingId === +user.id ? IconEdit : IconEdit } alt="Edit" />
                     </button>
