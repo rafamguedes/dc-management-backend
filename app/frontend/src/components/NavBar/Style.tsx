@@ -90,6 +90,18 @@ export const Menu = styled.div`
     background-color: #f5f5f5;
     color: #1F2631;
   }
+
+  a {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  a:hover {
+    color: #1F2631;
+  }
 `;
 
 export const Footer = styled.footer`
