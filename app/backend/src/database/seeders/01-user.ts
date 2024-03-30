@@ -4,37 +4,46 @@ export default {
   up: async (queryInterface: QueryInterface) => {
     await queryInterface.bulkInsert('users', [
       {
-        username: 'Admin',
+        username: 'Rick Sanchez',
         role: 'admin',
-        email: 'admin@admin.com',
-        password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW',
+        email: 'rick@admin.com',
+        password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW', // secret_admin
         image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg'
-          // senha: secret_admin
       },
       {
-        username: 'User',
+        username: 'Morty Smith',
         role: 'user',
-        email: 'user@user.com',
+        email: 'morty@euser.com',
+        password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW',
+        image: 'https://rickandmortyapi.com/api/character/avatar/2.jpeg'
+      },
+      {
+        username: 'Beth Smith',
+        role: 'user',
+        email: 'beth@email.com',
+        password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW',
+        image: 'https://rickandmortyapi.com/api/character/avatar/4.jpeg'
+      },
+      {
+        username: 'Agency Director',
+        role: 'user',
+        email: 'director@user.com',
         password: '$2a$08$Y8Abi8jXvsXyqm.rmp0B.uQBA5qUz7T6Ghlg/CvVr/gLxYj5UAZVO',
         image: 'https://rickandmortyapi.com/api/character/avatar/9.jpeg'
-          // senha: secret_user
       },
-      // os logins abaixo são intencionalmente inválidos, pois serão usados nos testes
       {
-        username: 'User',
+        username: 'Jerry Smith',
         role: 'user',
-        email: '@user.com',
+        email: 'jerrysmith@user.com',
         password: '$2a$08$Y8Abi8jXvsXyqm.rmp0B.uQBA5qUz7T6Ghlg/CvVr/gLxYj5UAZVO',
         image: 'https://rickandmortyapi.com/api/character/avatar/5.jpeg'
-          // senha: secret_user
       },
       {
-        username: 'User',
+        username: 'Amish Cyborg',
         role: 'user',
-        email: 'invalid.user@user.com',
+        email: 'amish@user.com',
         password: '$2a$10$HDkFwOMKOI6PTza0F7.YRu1Bqsqb9hx7XkuV7QeYB5dRL4z9DI1Mu',
         image: 'https://rickandmortyapi.com/api/character/avatar/16.jpeg'
-        // senha: 12345
       },
     ], {});
   },
