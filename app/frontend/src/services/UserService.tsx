@@ -18,8 +18,8 @@ class UserService {
   public async getUsers() {
     return this.api.get('/user');
   }
-
-  public async getUserId(userId: string) {
+  
+  public async getUserId(userId: number) {
     return this.api.get(`/user/${userId}`);
   }
 
@@ -27,11 +27,11 @@ class UserService {
     return this.api.post('/user', userData);
   }
 
-  public async updateUser(userId: string, userData: UserUpdate) {
+  public async updateUser(userId: number, userData: UserUpdate) {
     return this.api.put(`/user/${userId}`, userData);
   }
 
-  public async deleteUser(userId: string) {
+  public async deleteUser(userId: number) {
     return this.api.delete(`/user/${userId}`);
   }
 }
