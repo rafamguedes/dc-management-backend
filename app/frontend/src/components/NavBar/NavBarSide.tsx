@@ -23,8 +23,8 @@ const NavBarSide = () => {
       </UserInfo>
       <Menu>
         <ul>
-          <li><Link to=""><FaHouse size={ 20 } /> Dashboard</Link></li>
-          <li><Link to=""><FaUserPlus size={ 20 } /> Create User</Link></li>
+          <li><Link to="/dashboard"><FaHouse size={ 20 } /> Dashboard</Link></li>
+          <li><Link to="/create"><FaUserPlus size={ 20 } /> Create User</Link></li>
         </ul>
       </Menu>
       <Footer>
