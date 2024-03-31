@@ -1,18 +1,19 @@
 import Swal from 'sweetalert2';
 import React, { useState } from 'react';
-import { Container, Main } from './Style';
+import { Container, Main, Section, Wrapper } from './Style';
 import { useNavigate } from 'react-router';
 import { User } from '../../types/UserTypes';
-import { FaKey, FaUser } from 'react-icons/fa';
 import UserService from '../../services/UserService';
-import IconLogin from '../../assets/images/userIcon.svg';
+import IconLogin from '../../assets/images/icons/userLogin.svg';
 import { Loading } from '../../components/Loading/Loading';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -57,32 +58,44 @@ export function Login() {
 
   return (
     <Container>
+      <Section>
+        <h1>User Manager System</h1>
+        <h2>Manage your users in a simple and easy way</h2>
+        <p>Test the system with credentials</p>
+        <p>rick@admin.com / secret_admin</p>
+      </Section>
       <Main>
-        <img src={ IconLogin } alt="Login" />
-        <h1>Login</h1>
-        <form onSubmit={ handleSubmit }>
-          <div>
-            <FaUser className="icon" />
-            <input
-              type="text"
-              value={ email }
-              onChange={ (e) => setEmail(e.target.value) }
-              required
-              placeholder='Email'
-            />
-          </div>
-          <div>
-            <FaKey className="icon" />
-            <input
-              type="password"
-              value={ password }
-              onChange={ (e) => setPassword(e.target.value) }
-              required
-              placeholder='Password'
-            />
-          </div>
-          <button type="submit">Sign in</button>
-        </form>
+
+        <Wrapper>
+          <img src={ IconLogin } alt="Login" />
+          <h1>User Login</h1>
+          <form onSubmit={ handleSubmit }>
+            <div>
+              <input
+                type="text"
+                value={ email }
+                onChange={ (e) => setEmail(e.target.value) }
+                required
+                placeholder='Email'
+              />
+            </div>
+            <div>
+              <input
+                type={ showPassword ? 'text' : 'password'}
+                value={ password }
+                onChange={ (e) => setPassword(e.target.value) }
+                required
+                placeholder='Password'
+              />
+              {showPassword ? (
+                <FaEye className="iconEye" size={ 25 } onClick={ () => setShowPassword(false) } />
+              ) : (
+                <FaEyeSlash className="iconEye" size={ 25 } onClick={ () => setShowPassword(true) } />
+              )}
+            </div>
+            <button type="submit">Login</button>
+          </form>
+        </Wrapper>
       </Main>
     </Container>
   );
