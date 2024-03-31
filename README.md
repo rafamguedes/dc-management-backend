@@ -1,8 +1,8 @@
 <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;">
 
-<h1>User Service API</h1>
+  <h1>User Service API</h1>
   
-<div style="display:flex;flex-direction:row;gap:0.5rem;">
+  <div style="display:flex;flex-direction:row;gap:0.5rem;">
 
   <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node">
 
@@ -16,11 +16,11 @@
 
   <img src="https://img.shields.io/badge/json%20web%20tokens-323330?style=for-the-badge&logo=json-web-tokens&logoColor=pink" alt="JWT">
 
-</div>
+  </div>
 
-<br />
+  <br />
 
-<div style="display:flex;flex-direction:row;gap:0.5rem;">
+  <div style="display:flex;flex-direction:row;gap:0.5rem;">
 
   <img src="https://img.shields.io/badge/mocha.js-323330?style=for-the-badge&logo=mocha&logoColor=Brown" alt="Mocha">
 
@@ -30,11 +30,11 @@
 
   <img src="https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white" alt="ESLint">
 
-</div>
+  </div>
 
-<br />
+  <br />
 
-<div style="display:flex;flex-direction:row;gap:0.5rem;">
+  <div style="display:flex;flex-direction:row;gap:0.5rem;">
 
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAF" alt="React">
 
@@ -44,15 +44,15 @@
 
   <img src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white" alt="Styled Components">
 
-</div>
+  </div>
 
-<br />
-<br />
+  <br />
+  <br />
 
-<img width="800" src="app/frontend/src/assets/images/screenshots/dashboard.png">
+  <img width="800" src="app/frontend/src/assets/images/screenshots/dashboard.png">
 
-<br />
-<br />
+  <br />
+  <br />
 
 </div>
 
