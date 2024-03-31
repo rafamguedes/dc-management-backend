@@ -1,8 +1,8 @@
 <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;">
 
-<h1 align="center">User Service API</h1>
+<h1>User Service API</h1>
   
-<div style="display:flex;flex-direction:row;gap:0.5rem;justify-content:center;align-items:center;">
+<div style="display:flex;flex-direction:row;gap:0.5rem;">
 
   <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node">
 
@@ -20,7 +20,7 @@
 
 <br />
 
-<div style="display:flex;flex-direction:row;gap:0.5rem;justify-content:center;align-items:center;">
+<div style="display:flex;flex-direction:row;gap:0.5rem;">
 
   <img src="https://img.shields.io/badge/mocha.js-323330?style=for-the-badge&logo=mocha&logoColor=Brown" alt="Mocha">
 
@@ -34,7 +34,7 @@
 
 <br />
 
-<div style="display:flex;flex-direction:row;gap:0.5rem;justify-content:center;align-items:center;">
+<div style="display:flex;flex-direction:row;gap:0.5rem;">
 
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAF" alt="React">
 
