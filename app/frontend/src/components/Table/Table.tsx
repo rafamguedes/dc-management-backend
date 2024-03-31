@@ -1,5 +1,6 @@
-import IconDelete from '../../assets/images/iconDelete.svg';
-import IconEdit from '../../assets/images/iconEdit.svg';
+import IconDelete from '../../assets/images/icons/iconDelete.svg';
+import IconEdit from '../../assets/images/icons/iconEdit.svg';
+import IconCheck from '../../assets/images/icons/check.svg';
 import { User } from '../../types/UserTypes';
 import { Table } from './Style';
 
@@ -55,7 +56,7 @@ const UserTable = ({
               onClick={ () => editingId === +user.id ?
                 handleUpdate(+user.id) : handleEdit(+user.id, user.role) }
             >
-              <img src={ editingId === +user.id ? IconEdit : IconEdit } alt="Edit" />
+              <img src={ editingId === +user.id ? IconCheck : IconEdit } alt="Edit" />
             </button>
           </td>
           <td>

@@ -20,6 +20,14 @@ export const Table = styled.table`
     font-size: 0.9rem;
     border-bottom: 1px solid #f1f1f1;
   }
+
+  td input {
+    width: 80%;
+    padding: 0.5em;
+    border: none;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
   
   tr:hover {
     background-color: #f1f1f1;
@@ -46,6 +54,7 @@ export const Table = styled.table`
   button img {
     width: 30px;
     height: 30px;
+    border: none;
   }
 
   @media (max-width: 768px) {
