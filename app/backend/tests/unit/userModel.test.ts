@@ -108,8 +108,8 @@ describe('Unit Tests User Model', () => {
       // arrange
       const updatedUser = {
         id: 1,
-        username: 'Admin',
-        email: 'admin@admin.com',
+        username: 'Rick Sanchez',
+        email: 'rick@admin.com',
         role: 'admin',
         image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg'
       };

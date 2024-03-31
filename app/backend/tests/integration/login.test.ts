@@ -58,7 +58,7 @@ describe('Integration Login tests', () => {
       sinon.stub(JwtService, 'createToken').returns(tokenMock);
         
       // act
-      const request = { email: 'user@user.com', password: 'secret_user' };
+      const request = { email: 'rick@admin.com', password: 'secret_admin' };
     
       const res = await chai.request(app).post('/login').send(request);
   
