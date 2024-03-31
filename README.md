@@ -5,7 +5,7 @@ User Service App is a robust and scalable application designed to manage and han
 # Technologys
 
 - Backend
-  - Node, Express, TypeScript, Mocha, Sinon, Chai, Postgress, Docker
+  - Node, Express, TypeScript, JWT, Mocha, Sinon, Chai, Postgress, Docker
 
 - Frontend
   - React, TypeScript, Vite, Vitest, Styled Components, Hooks
@@ -14,23 +14,23 @@ User Service App is a robust and scalable application designed to manage and han
   - Vercel and Railway
 
 
-# Login 
+## Login 
 ![Dashboard](app/frontend/src/assets/images/screenshots/login.png)
 
-# Dashboard
+## Dashboard
 ![Dashboard](app/frontend/src/assets/images/screenshots/dashboard.png)
 
-# Create User
+## Create User
 ![Dashboard](app/frontend/src/assets/images/screenshots/registerUser.png)
 
-# Update User
+## Update User
 ![Dashboard](app/frontend/src/assets/images/screenshots/updateUser.png)
 
-# Delete User
+## Delete User
 ![Dashboard](app/frontend/src/assets/images/screenshots/deleteUser.png)
 
-# Tests Backend Coverage (Unit and Integration tests)
+## Tests Backend Coverage (Unit and Integration tests)
 ![Dashboard](app/frontend/src/assets/images/screenshots/testsBackend.png)
 
-# Tests Frontend Coverage (Unit tests)
+## Tests Frontend Coverage (Unit tests)
 ![Dashboard](app/frontend/src/assets/images/screenshots/testsFrontend.png)
