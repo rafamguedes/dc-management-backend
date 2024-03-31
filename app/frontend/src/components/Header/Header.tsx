@@ -18,7 +18,7 @@ const Header = ({ handleSearch }: HeaderProps) => (
       />
       <FaSearch size={ 25 } />
     </Search>
-    <Icons>
+    <Icons data-testid="iconsHeader">
       <FaLinkedinIn size={ 25 } />
       <FaGithub size={ 25 } />
     </Icons>
