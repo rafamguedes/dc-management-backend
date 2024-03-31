@@ -1,4 +1,4 @@
-<h1>User Service API</h1>
+<h1>User Service App</h1>
   
   <div style="display:flex;flex-direction:row;gap:0.5rem;">
 
