@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { useState } from 'react';
 import UserService from '../../services/UserService';
-import IconCreate from '../../assets/images/icons/user.svg';
+import IconCreate from '../../assets/images/icons/user1.svg';
 import { avatarGenerate } from '../../utils/avatarGenerator';
 import { FaEye, FaEyeSlash, FaGithub, FaLinkedinIn, FaUserPlus } from 'react-icons/fa';
 import {
@@ -14,8 +14,6 @@ import {
   InputBox,
   InputBoxEmailAndRole,
   InputBoxImage, InputBoxPassword, Main, Title, TitleMain } from './Style';
-
-
 
 const CreateUser = () => {
   const [username, setUsername] = useState('');
