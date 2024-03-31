@@ -5,7 +5,7 @@ User Service App is a robust and scalable application designed to manage and han
 # Technologys
 
 - Backend
-  - Node, Express, TypeScript, JWT, Mocha, Sinon, Chai, Postgress, Docker
+  - Node, Express, TypeScript, JWT, Mocha, Sinon, Chai, PostgresSQL, Docker
 
 - Frontend
   - React, TypeScript, Vite, Vitest, Styled Components, Hooks
