@@ -9,7 +9,7 @@ export const Container = styled.div`
 
   @media (max-width: 768px) {
     padding: 20px;
-    flex-direction: column-reverse;
+    flex-direction: column;
     height: 100%;
   }
 `;
@@ -47,8 +47,11 @@ export const Section = styled.section`
   @media (max-width: 768px) {
     width: 100%;
     height: auto;
-    margin: 3rem;
+    margin: 0 3rem 2rem 3rem;
     gap: 1rem;
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+    border-radius: 10px;
 
     h1 {
       font-size: 2rem;
