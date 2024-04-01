@@ -16,5 +16,5 @@ class Server {
   }
 }
 
-const PORT = process.env.APP_PORT || 3001;
+const PORT = process.env.PORT || 3001;
 new Server(PORT).start();
