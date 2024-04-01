@@ -70,18 +70,20 @@
 ```
 - POST /login - User login app
 
-- GET /login/role - Get user role
+- GET /login/role - Get user role - (requires authorization)
 ```
+
 ### ▶️ User
 ```
-- POST /user - Create a new user.
+- POST /user - Create a new user
 
-- GET /user - Read a list of all users.
+- GET /user - Read a list of all users - (requires authorization)
 
-- PUT /user/:id - Update a user.
+- PUT /user/:id - Update a user - (requires authorization)
 
-- DELETE /user/:id - Delete a user
+- DELETE /user/:id - Delete a user - (requires authorization)
 ```
+
 <br />
 
 ## ➡️ ScreenShots
