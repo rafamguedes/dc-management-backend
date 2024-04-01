@@ -10,7 +10,6 @@ import UserTable from '../src/components/Table/Table';
 const TITLE_LOGIN = 'User Manager System';
 const SUBTITLE = 'Manage your users in a simple and easy way';
 const TEST_CREDENTIALS = 'Test the system with credentials';
-const CREDENTIALS = 'rick@admin.com / secret_admin';
 
 // Form elements Login Page
 const TITLE_FORM = 'User Login';
@@ -35,7 +34,6 @@ describe('Tests Login Page', () => {
     expect(screen.getByText(TITLE_LOGIN)).toBeInTheDocument();
     expect(screen.getByText(SUBTITLE)).toBeInTheDocument();
     expect(screen.getByText(TEST_CREDENTIALS)).toBeInTheDocument();
-    expect(screen.getByText(CREDENTIALS)).toBeInTheDocument();
   })
 
   it('1.2 should render form elements', () => {

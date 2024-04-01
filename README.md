@@ -54,7 +54,7 @@
 
 ## ➡️ Usage
 
-1. clone the project
+1. Clone the project
 
 2. Inside of root project, <strong>run npm install:apps</strong>
 
@@ -63,6 +63,12 @@
 4. Run frontend: <strong>npm run dev</strong>
 
 <br />
+
+## ➡️ Tests Coverage
+
+1. Backend - Go to app/backend and run: npm run test:coverage
+
+2. Frontend - Go to app/frontend and run: npm coverage
 
 ## ➡️ API Endpoints
 
