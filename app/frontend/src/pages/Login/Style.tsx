@@ -64,6 +64,44 @@ export const Section = styled.section`
   }
 `;
 
+export const Copy = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  input {
+    width: 200px;
+    border: none;
+    padding: 10px;
+    background-color: #eee;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: #444;
+  }
+
+  button {
+    background-color: transparent;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin-left: -35px;
+    margin-top: 5px;
+  }
+
+  .tooltip {
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    margin-left: 280px;
+  }
+`;
+
 export const Main = styled.main`
   display: flex;
   flex-direction: column;

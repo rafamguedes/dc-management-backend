@@ -1,12 +1,13 @@
 import Swal from 'sweetalert2';
 import React, { useState } from 'react';
-import { Container, Main, Section, Wrapper } from './Style';
+import { Container, Copy, Main, Section, Wrapper } from './Style';
 import { useNavigate } from 'react-router';
 import { User } from '../../types/UserTypes';
 import UserService from '../../services/UserService';
 import IconLogin from '../../assets/images/icons/userLogin.svg';
 import { Loading } from '../../components/Loading/Loading';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FiCopy } from 'react-icons/fi';
 
 export function Login() {
   const navigate = useNavigate();
@@ -14,6 +15,10 @@ export function Login() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedPassword, setCopiedPassword] = useState(false);
+  const copyEmail = 'rick@admin.com';
+  const copyPass = 'secret_admin';
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -46,6 +51,21 @@ export function Login() {
     }
   };
 
+  const copyToClipboard = (text: string, type: string) => {
+    navigator.clipboard.writeText(text);
+    if (type === 'email') {
+      setCopiedEmail(true);
+      setTimeout(() => {
+        setCopiedEmail(false);
+      }, 2000);
+    } else if (type === 'password') {
+      setCopiedPassword(true);
+      setTimeout(() => {
+        setCopiedPassword(false);
+      }, 2000);
+    }
+  };
+
   if (loading) {
     return (
       <Container>
@@ -62,7 +82,22 @@ export function Login() {
         <h1>User Manager System</h1>
         <h2>Manage your users in a simple and easy way</h2>
         <p>Test the system with credentials</p>
-        <p>rick@admin.com / secret_admin</p>
+        <Copy>
+          <input className="ipt" type="text" value={ copyEmail } data-testid="email" readOnly />
+          <button data-testid="copied" className="copy-button" onClick={() => copyToClipboard(copyEmail, 'email')}>
+            <FiCopy size={ 20 } />
+          </button>
+
+          {copiedEmail && <span className="tooltip">Copied!</span>}
+        </Copy>
+
+        <Copy>
+          <input className="ipt" type="text" value={ copyPass } data-testid="password" readOnly />
+          <button data-testid="copied" className="copy-button" onClick={() => copyToClipboard(copyPass, 'password')}>
+            <FiCopy size={ 20 } />
+          </button>
+          {copiedPassword && <span className="tooltip">Copied!</span>}
+        </Copy>
       </Section>
       <Main>
 
