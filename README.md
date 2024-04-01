@@ -70,6 +70,9 @@
 
 2. Frontend - Go to app/frontend and run: npm run coverage or npm run test
 ```
+
+<br />
+
 ## ➡️ API Endpoints
 
 ### ▶️ Login
