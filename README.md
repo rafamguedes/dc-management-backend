@@ -65,11 +65,11 @@
 <br />
 
 ## ➡️ Tests Coverage
+```
+1. Backend - Go to app/backend and run: npm run test:coverage or npm run test
 
-1. Backend - Go to app/backend and run: npm run test:coverage
-
-2. Frontend - Go to app/frontend and run: npm coverage
-
+2. Frontend - Go to app/frontend and run: npm run coverage or npm run test
+```
 ## ➡️ API Endpoints
 
 ### ▶️ Login
