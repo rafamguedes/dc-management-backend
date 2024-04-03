@@ -16,7 +16,10 @@ const useDashboard = () => {
     const handleFetch = async () => {
       try {
         const response = await ApiService.getUsers();
-        const sortByRole = response.data.sort((a: User, b: User) => a.role.localeCompare(b.role));
+        const uniqueUsers = response.data.filter((user: User, index: number, self: User[]) =>
+          index === self.findIndex((u: User) => u.username === user.username)
+        );
+        const sortByRole = uniqueUsers.sort((a: User, b: User) => a.role.localeCompare(b.role));
         setUsers(sortByRole);
         setAllUsers(response.data);
         setLoading(false);
