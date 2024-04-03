@@ -2,10 +2,10 @@
   "name": "authts",
   "version": "1.0.0",
   "description": "",
-  "main": "./build/server",
+  "main": "src/server",
   "scripts": {
     "build": "npx tsc",
-    "start": "node ./build/server",
+    "start": "node src/server",
     "dev": "tsnd --watch \"./src/**\" ./src/server.ts",
     "predev": "npm run db:reset",
     "test": "mocha -r ts-node/register tests/**/**/*.test.ts --exit -t 60000 --exit",
