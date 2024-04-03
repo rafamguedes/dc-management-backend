@@ -15,13 +15,14 @@ export function Dashboard() {
     handleUpdate,
     handleDelete,
     handleSearch,
+    handleFilter,
     setEditedRole,
   } = useDashboard();
 
   return (
     <>
       <Header handleSearch={ handleSearch } />
-      <Filter />
+      <Filter handleFilter={ handleFilter } users={ users } />
       <SectionTable>
         <UserTable
           users={ users }
