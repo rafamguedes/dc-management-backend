@@ -43,7 +43,7 @@
 ## ➡️ Technologys
 
 - Backend
-  - Node, Express, TypeScript, JWT, Mocha, Sinon, Chai, PostgresSQL, Docker
+  - Node, Express, TypeScript, JWT, PostgresSQL, Redis, Docker, Mocha, Sinon, Chai
 
 - Frontend
   - React, TypeScript, Vite, Vitest, Styled Components, Hooks
@@ -59,7 +59,7 @@
 
 2. Inside of root project, <strong>run npm install:apps</strong>
 
-3. Run docker containers backend and database: <strong>npm run compose:up</strong>
+3. Run docker containers backend, Redis and database: <strong>npm run compose:up</strong>
 
 4. Run frontend: <strong>npm run dev</strong>
 
