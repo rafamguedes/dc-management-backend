@@ -52,6 +52,14 @@ export const Icons = styled.div`
   display: flex;
   gap: 1rem;
 
+  a {
+    color: #fff;
+  }
+
+  a:hover {
+    color: #ccc;
+  }
+
   @media (max-width: 768px) {
     display: none;
   }
