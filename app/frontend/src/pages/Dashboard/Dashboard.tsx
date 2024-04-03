@@ -3,6 +3,7 @@ import UserTable from '../../components/Table/Table';
 import useDashboard from '../../hooks/useDashboard';
 import Header from '../../components/Header/Header';
 import { SectionTable } from './Style';
+import { Filter } from '../../components/Filter/Filter';
 
 export function Dashboard() {
   const {
@@ -20,6 +21,7 @@ export function Dashboard() {
   return (
     <>
       <Header handleSearch={ handleSearch } />
+      <Filter />
       <SectionTable>
         <UserTable
           users={ users }

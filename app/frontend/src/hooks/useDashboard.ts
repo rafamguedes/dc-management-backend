@@ -16,7 +16,8 @@ const useDashboard = () => {
     const handleFetch = async () => {
       try {
         const response = await ApiService.getUsers();
-        setUsers(response.data);
+        const sortByRole = response.data.sort((a: User, b: User) => a.role.localeCompare(b.role));
+        setUsers(sortByRole);
         setAllUsers(response.data);
         setLoading(false);
       } catch (error) {
@@ -26,6 +27,15 @@ const useDashboard = () => {
 
     handleFetch();
   }, []);
+
+  const handleFilter = (role: string) => {
+    if (role === 'all') {
+      setUsers(allUsers);
+    } else {
+      const filteredUsers = allUsers.filter((user) => user.role === role);
+      setUsers(filteredUsers);
+    }
+  };
 
   const handleSearch = async (search: string) => {
     try {
@@ -107,12 +117,14 @@ const useDashboard = () => {
     loading,
     editingId,
     editedRole,
+    setUsers,
     handleSearch,
     handleEdit,
     handleUpdate,
     handleDelete,
     handleLogout,
     setEditedRole,
+    handleFilter,
   };
 };
 

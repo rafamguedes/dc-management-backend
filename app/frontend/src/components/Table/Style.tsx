@@ -57,6 +57,20 @@ export const Table = styled.table`
     border: none;
   }
 
+  .button-load-more {
+    align-self: center;
+    padding: 0.5rem 1rem;
+    background-color: #202020;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .button-load-more:hover {
+    background-color: #404040;
+  }
+
   @media (max-width: 768px) {
     table {
       width: 100%;
