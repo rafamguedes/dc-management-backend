@@ -3,6 +3,7 @@ import { IUserModel } from '../interfaces/User/IUserModel';
 import { ServiceResponse } from '../utils/ServiceResponse';
 import { IUser, IUserResponse, IUserUpdate } from '../interfaces/User/IUser';
 import { UserModel } from '../models/UserModel';
+import { cacheData, getCached } from './CacheService';
 
 // Constants for Service
 const SALT_ROUNDS = 10;
@@ -25,13 +26,21 @@ class UserService {
 
 
   public async getAllUsers(): Promise<ServiceResponse<IUser[]>> {
-
-    const users = await this.userModel.getAll();
-
+    let users = await getCached('users');
+  
     if (!users) {
-      return { status: INTERNAL_ERROR, data: { message: FAILED_GET_USERS } };
+      users = await this.userModel.getAll();
+  
+      if (!users) {
+        return { status: INTERNAL_ERROR, data: { message: FAILED_GET_USERS } };
+      }
+  
+      await cacheData('users', users);
+      console.log(users, 'was persisted in redis and created on MySQL');
+    } else {
+      users = JSON.parse(users);
     }
-
+  
     return { status: SUCCESSFUL, data: users };
   }
   
