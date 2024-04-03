@@ -17,7 +17,7 @@ export function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPassword, setCopiedPassword] = useState(false);
-  const copyEmail = 'rick@admin.com';
+  const copyEmail = 'ricksanchez@email.com';
   const copyPass = 'secret_admin';
 
   const handleSubmit = async (event: React.FormEvent) => {
