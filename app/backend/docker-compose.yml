@@ -35,3 +35,11 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"] # Deve aguardar o banco ficar operacional
       timeout: 10s
       retries: 5
+      
+  redis_compose:
+      image: redis
+      container_name: redis_compose
+      ports:
+        - 3339:3339
+      volumes:
+        - ./redis/:/var/lib/postgresql/data
