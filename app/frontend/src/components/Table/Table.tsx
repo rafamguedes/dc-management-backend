@@ -41,11 +41,13 @@ const UserTable = ({
           <td>{ user.username }</td>
           <td>
             {editingId === +user.id ? (
-              <input 
-                type="text" 
-                value={editedRole} 
-                onChange={(e) => setEditedRole(e.target.value)} 
-              />
+              <select
+                value={ editedRole }
+                onChange={ (e) => setEditedRole(e.target.value) }
+              >
+                <option value="admin">admin</option>
+                <option value="user">user</option>
+              </select>
             ) : (
               user.role
             )}

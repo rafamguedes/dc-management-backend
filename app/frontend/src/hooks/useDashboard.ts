@@ -21,7 +21,7 @@ const useDashboard = () => {
         );
         const sortByRole = uniqueUsers.sort((a: User, b: User) => a.role.localeCompare(b.role));
         setUsers(sortByRole);
-        setAllUsers(response.data);
+        setAllUsers(sortByRole);
         setLoading(false);
       } catch (error) {
         console.error('Failed to fetch users:', error);
@@ -51,6 +51,24 @@ const useDashboard = () => {
   };
 
   const handleEdit = (id: number, role: string) => {
+    if (role === 'admin') {
+      return Swal.fire({
+        icon: 'error',
+        title: 'Cannot update an admin',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+
+    if (role !== 'admin' && role !== 'user') {
+      return Swal.fire({
+        icon: 'error',
+        title: 'Invalid role, must be admin or user',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+
     setEditingId(id);
     setEditedRole(role);
   };
@@ -78,6 +96,17 @@ const useDashboard = () => {
   };
 
   const handleDelete = async (id: number) => {
+    const isAdmin = users.find((user) => +user.id === id)?.role === 'admin';
+
+    if (isAdmin) {
+      return Swal.fire({
+        icon: 'error',
+        title: 'Cannot delete an admin',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+
     const result = await handleSwalDelete();
 
     if (!result.isConfirmed) return;

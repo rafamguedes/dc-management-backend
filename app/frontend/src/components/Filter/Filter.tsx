@@ -1,3 +1,4 @@
+import { FaPlusCircle } from 'react-icons/fa';
 import { User } from '../../types/UserTypes';
 import { ContainerFilter, Wrapper } from './Style';
 
@@ -11,7 +12,7 @@ export function Filter({ handleFilter, users }: FilterProps) {
     <ContainerFilter>
       <Wrapper>
         <div className="totals">
-          <span>Total Users: {users.length}</span>
+          <span>Total: {users.length}</span>
           {' | '}
           <span>Admins: {users.filter((user) => user.role === 'admin').length}</span>
           {' | '}
@@ -20,11 +21,12 @@ export function Filter({ handleFilter, users }: FilterProps) {
 
         <div className="filter">
           <span>Filter by role</span>
-            <select onChange={(event) => handleFilter(event.target.value)}>
-                <option value="all">All</option>
-                <option value="admin">Admin</option>
-                <option value="user">User</option>
-            </select>
+          <select onChange={(event) => handleFilter(event.target.value)}>
+            <option value="all">All</option>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+          </select>
+          <FaPlusCircle className="icon-create-mobile" size={20} />
         </div>
       </Wrapper>
     </ContainerFilter>

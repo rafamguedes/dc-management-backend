@@ -5,6 +5,7 @@ export const Table = styled.table`
   border-collapse: collapse;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   border-radius: 10px;
+  margin: 1rem 0;
 
   thead {
     background-color: #f5f5f5;
@@ -31,6 +32,25 @@ export const Table = styled.table`
   
   tr:hover {
     background-color: #f1f1f1;
+  }
+
+  td select {
+    width: 100%;
+    padding: 0.5em;
+    border: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    cursor: pointer;
+  }
+
+  td select option {
+    padding: 0.5em;
+    border: none;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #f5f5f5;
+    cursor: pointer;
   }
   
   img {

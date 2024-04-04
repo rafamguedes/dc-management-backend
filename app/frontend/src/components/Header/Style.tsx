@@ -9,6 +9,10 @@ export const HeaderContainer = styled.header`
   padding: 1rem 0;
   background-color: #1F2631;
   color: #fff;
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
 `;
 
 export const Title = styled.div`
@@ -20,7 +24,7 @@ export const Title = styled.div`
 
   @media (max-width: 768px) {
     h1 {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     }
   }
 `;

@@ -73,7 +73,7 @@ export const Copy = styled.div`
   align-items: center;
 
   input {
-    width: 200px;
+    width: 300px;
     border: none;
     padding: 10px;
     background-color: #eee;

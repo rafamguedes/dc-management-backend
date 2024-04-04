@@ -20,6 +20,12 @@ export const Wrapper = styled.div`
   margin: 0 3rem 0 2.4rem;
   border-radius: 0.5rem;
 
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0 1rem 1rem 1rem;
+  }
+
   h1 {
     font-size: 1.5rem;
   }
@@ -35,6 +41,17 @@ export const Wrapper = styled.div`
       margin: 0 1rem;
       color: #666;
       font-weight: 300;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .totals {
+      gap: 1rem;
+    }
+
+    span {
+      font-size: 0.8rem;
+      text-align: center;
     }
   }
 
@@ -77,6 +94,29 @@ export const Wrapper = styled.div`
 
     select:active {
       background-color: #f0f0f0;
+    }
+  }
+
+  .icon-create-mobile {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .filter {
+      gap: 1rem;
+    }
+
+    span {
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    select {
+      font-size: 0.8rem;
+    }
+
+    .icon-create-mobile {
+      display: block;
     }
   }
 `;

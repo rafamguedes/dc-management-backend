@@ -100,29 +100,29 @@
 
 ## ▶️ Login 
 
-![Dashboard](app/frontend/src/assets/images/screenshots/login.png)
+![Dashboard](screenshots/login.png)
 
 <br />
 
 ## ▶️ Dashboard
-![Dashboard](app/frontend/src/assets/images/screenshots/dashboard.png)
+![Dashboard](screenshots/dashboard.png)
 
 <br />
 
 ## ▶️ Create User
-![Dashboard](app/frontend/src/assets/images/screenshots/registerUser.png)
+![Dashboard](screenshots/registerUser.png)
 
 <br />
 
 ## ▶️ Update User
-![Dashboard](app/frontend/src/assets/images/screenshots/updateUser.png)
+![Dashboard](screenshots/updateUser.png)
 
 <br />
 
 ## ▶️ Delete User
-![Dashboard](app/frontend/src/assets/images/screenshots/deleteUser.png)
+![Dashboard](screenshots/deleteUser.png)
 
 <br />
 
 ## ▶️ Tests Backend Coverage (Unit and Integration tests)
-![Dashboard](app/frontend/src/assets/images/screenshots/testsBackend.png)
+![Dashboard](screenshots/testsBackend.png)
