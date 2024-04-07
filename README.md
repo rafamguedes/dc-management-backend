@@ -27,7 +27,7 @@
 <br />
 
 <p align="center">
-  <img width="800" src="app/frontend/src/assets/images/screenshots/dashboard.png">
+  <img width="800" src="screenshots/dashboard.png">
 </p>
 
 <br /><br />
