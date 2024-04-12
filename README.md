@@ -40,7 +40,7 @@
 
 <br />
 
-## ➡️ Technologys
+## ➡️ Technologies
 
 - Backend
   - Node, Express, TypeScript, JWT, PostgresSQL, Redis, Docker, Mocha, Sinon, Chai
