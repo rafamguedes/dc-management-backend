@@ -1,4 +1,4 @@
-<h1 align="center">User Service App 👥</h1>
+<h1 align="center">Authentication Microservice 👥</h1>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node">
