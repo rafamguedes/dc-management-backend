@@ -35,7 +35,7 @@
 ## ➡️ About
 
 <p>
-  Authentication Microservice provides features such as user authentication, profile management, role-based access control, and user analytics. The application is built with a focus on security and performance, ensuring that user data is protected while delivering a smooth user experience.
+  Authentication Microservice provides features such as user authentication, profile management and role-based access control. The application is built with a focus on security and performance, ensuring that user data is protected while delivering a smooth user experience.
 </p>
 
 <br />
