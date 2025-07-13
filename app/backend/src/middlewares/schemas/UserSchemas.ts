@@ -1,4 +1,3 @@
-//
 import * as Joi from 'joi';
 
 export const bodySchema: Joi.Schema = Joi.object({

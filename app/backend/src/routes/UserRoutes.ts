@@ -1,44 +1,46 @@
 import { Request, Router, Response } from 'express';
 import { UserController } from '../controllers/UserController';
 import { UserValidator } from '../middlewares/UserMiddleware';
+import { Authenticate } from '../middlewares/AuthMiddleware';
 
-class UserRoutes {
-  public router: Router;
+const createUserRoutes = (): Router => {
+  const router = Router();
+  const userController = new UserController();
   
-  private userController: UserController;
+  router.post(
+    '/',
+    UserValidator.validateBody,
+    (req: Request, res: Response) => userController.create(req, res),
+  );
 
-  constructor() {
-    this.router = Router();
-    this.userController = new UserController();
-    this.initializeRoutes();
-  }
+  router.get(
+    '/',
+    Authenticate.authToken,
+    (req: Request, res: Response) => userController.findAll(req, res),
+  );
 
-  private initializeRoutes() {
+  router.get(
+    '/:id',
+    Authenticate.authToken,
+    (req: Request, res: Response) => userController.findById(req, res),
+  );
 
-    this.router.get(
-      '/',
-      (req: Request, res: Response) => this.userController.getAllUsers(req, res),
-    );
-    
-    this.router.post(
-      '/',
-      UserValidator.validateBody,
-      (req: Request, res: Response) => this.userController.registerUser(req, res),
-    );
+  router.put(
+    '/:id',
+    Authenticate.authToken,
+    UserValidator.validateParams,
+    UserValidator.validateUpdateBody,
+    (req: Request, res: Response) => userController.update(req, res),
+  );
 
-    this.router.put(
-      '/:id',
-      UserValidator.validateParams,
-      UserValidator.validateUpdateBody,
-      (req: Request, res: Response) => this.userController.updateUser(req, res),
-    )
+  router.delete(
+    '/:id',
+    Authenticate.authToken,
+    UserValidator.validateParams,
+    (req: Request, res: Response) => userController.remove(req, res),
+  );
 
-    this.router.delete(
-      '/:id',
-      UserValidator.validateParams,
-      (req: Request, res: Response) => this.userController.deleteUser(req, res),
-    )
-  }
-}
+  return router;
+};
 
-export default new UserRoutes().router;
+export default createUserRoutes();

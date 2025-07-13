@@ -2,49 +2,47 @@ import * as Joi from 'joi';
 import { Request, Response, NextFunction } from 'express';
 import { bodySchema, paramsSchema, bodyEditSchema } from './schemas/UserSchemas';
 
-// Constant
 const INVALID_VALUE = 'INVALID_VALUE';
 
-class UserValidator {
-  
-  public static validateBody(req: Request, res: Response, next: NextFunction): void | Response {
+const validateBody = (req: Request, res: Response, next: NextFunction): void => {
+  const { username, role, email, password, image } = req.body;
 
-    const { username, role, email, password, image } = req.body;
+  const { error }: Joi.ValidationResult = bodySchema.validate({ username, role, email, password, image });
 
-    const { error }: Joi.ValidationResult = bodySchema.validate({ username, role, email, password, image });
-
-    if (error) {
-      return res.status(400).json({ status: INVALID_VALUE, message: error.details[0].message });
-    }
-
-    next();
+  if (error) {
+    res.status(400).json({ status: INVALID_VALUE, message: error.details[0].message });
+    return;
   }
 
+  next();
+};
 
-  public static validateParams(req: Request, res: Response, next: NextFunction): void | Response {
+const validateParams = (req: Request, res: Response, next: NextFunction): void => {
+  const { error }: Joi.ValidationResult = paramsSchema.validate({ id: req.params.id });
 
-    const { error }: Joi.ValidationResult = paramsSchema.validate({ id: req.params.id });
-
-    if (error) {
-      return res.status(400).json({ status: INVALID_VALUE, message: error.details[0].message });
-    }
-
-    next();
+  if (error) {
+    res.status(400).json({ status: INVALID_VALUE, message: error.details[0].message });
+    return;
   }
 
+  next();
+};
 
-  public static validateUpdateBody(req: Request, res: Response, next: NextFunction): void | Response {
+const validateUpdateBody = (req: Request, res: Response, next: NextFunction): void => {
+  const { username, role, email, image } = req.body;
 
-    const { username, role, email, image } = req.body;
+  const { error }: Joi.ValidationResult = bodyEditSchema.validate({ username, role, email, image });
 
-    const { error }: Joi.ValidationResult = bodyEditSchema.validate({ username, role, email, image });
-
-    if (error) {
-      return res.status(400).json({ status: INVALID_VALUE, message: error.details[0].message });
-    }
-
-    next();
+  if (error) {
+    res.status(400).json({ status: INVALID_VALUE, message: error.details[0].message });
+    return;
   }
-}
 
-export { UserValidator };
+  next();
+};
+
+export const UserValidator = {
+  validateBody,
+  validateParams,
+  validateUpdateBody
+};

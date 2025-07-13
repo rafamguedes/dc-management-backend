@@ -1,19 +1,11 @@
 import { Router } from 'express';
 
-class HealthRoute {
-  //
-  public router: Router;
+const createHealthRoute = (): Router => {
+  const router = Router();
+  
+  router.get('/', (_req, res) => res.status(200).send('Health Check OK!'));
+  
+  return router;
+};
 
-  constructor() {
-    //
-    this.router = Router();
-    this.initializeRoutes();
-  }
-
-  private initializeRoutes() {
-    //
-    this.router.get('/', (_req, res) => res.status(200).send('Health Check OK!'));
-  }
-}
-
-export default new HealthRoute().router;
+export default createHealthRoute();

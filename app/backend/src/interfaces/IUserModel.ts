@@ -1,4 +1,3 @@
-//
 import { IUser, IUserResponse, IUserUpdate } from './IUser';
 
 export interface IUserModel {
