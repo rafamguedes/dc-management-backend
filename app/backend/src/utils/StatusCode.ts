@@ -1,19 +1,12 @@
-//
-const StatusCode = (status: string): number => {
-  //
-  switch (status) {
-    //
-    case 'SUCCESSFUL': return 200;
-    case 'CREATED': return 201;
-    case 'INVALID_DATA': return 400;
-    case 'UNAUTHORIZED': return 401;
-    case 'NOT_FOUND': return 404;
-    case 'CONFLICT': return 409;
-    case 'UNPROCESSABLE_ENTITY': return 422;
-    case 'INTERNAL_ERROR': return 500;
+export enum StatusCodes {
+  SUCCESSFUL = 200,
+  CREATED = 201,
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  NOT_FOUND = 404,
+  CONFLICT = 409,
+  UNPROCESSABLE_ENTITY = 422,
+  INTERNAL_ERROR = 500,
+}
 
-    default: return 500;
-  }
-};
-
-export { StatusCode };
+export type StatusKey = keyof typeof StatusCodes;

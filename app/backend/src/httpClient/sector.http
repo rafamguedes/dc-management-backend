@@ -1,0 +1,40 @@
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3NTIzNzM4MDksImV4cCI6MTc1MjM3NzQwOX0.cmRMMLicvzgM97Z094Phtl343v5VypF8jVPfZkR24L8
+@BASE_URL = http://localhost:3001
+
+### Create Sector
+POST {{BASE_URL}}/sectors
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+  "name": "Food and Beverage",
+  "description": "Food and Beverage sector focusing on quality and sustainability"
+}
+
+###
+### Get All Sectors
+GET {{BASE_URL}}/sectors
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+###
+### Get Sector by ID
+GET {{BASE_URL}}/sectors/6
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+###
+### Update Sector
+PUT {{BASE_URL}}/sectors/6
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+  "name": "Information Technology",
+  "description": "Advanced Information Technology, Software Development and Digital Solutions sector"
+}
+
+###
+### Delete Sector
+DELETE {{BASE_URL}}/sectors/6
+Authorization: Bearer {{TOKEN}}

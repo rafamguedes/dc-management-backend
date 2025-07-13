@@ -1,0 +1,104 @@
+@BASE_URL = http://localhost:3001
+@TOKEN = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3NTI0MTM2NTcsImV4cCI6MTc1MjQxNzI1N30.yffBw6i8AKrMlZJ1mHHOQJKtMW2yAqRNGHzUjWP0VuU
+
+### Create a new slot
+POST {{BASE_URL}}/slots
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "aisleId": 1,
+  "code": "A001",
+  "floor": 1,
+  "status": "available"
+}
+
+### Get all slots
+GET {{BASE_URL}}/slots
+Authorization: {{TOKEN}}
+
+### Get slot by ID
+GET {{BASE_URL}}/slots/1
+Authorization: {{TOKEN}}
+
+### Get slots by aisle
+GET {{BASE_URL}}/slots/aisle/1
+Authorization: {{TOKEN}}
+
+### Get slots by status
+GET {{BASE_URL}}/slots/status/available
+Authorization: {{TOKEN}}
+
+### Get slots by floor
+GET {{BASE_URL}}/slots/floor/2
+Authorization: {{TOKEN}}
+
+### Update slot
+PUT {{BASE_URL}}/slots/1
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "aisleId": 1,
+  "code": "A001-UPDAT",
+  "floor": 2,
+  "status": "occupied"
+}
+
+### Update slot status only
+PUT {{BASE_URL}}/slots/1/status
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "status": "maintenance"
+}
+
+### Delete slot
+DELETE {{BASE_URL}}/slots/20
+Authorization: {{TOKEN}}
+
+### Test validation - Invalid aisle ID
+POST {{BASE_URL}}/slots
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "aisleId": "invalid",
+  "code": "A001",
+  "floor": 1,
+  "status": "AVAILABLE"
+}
+
+### Test validation - Missing required fields
+POST {{BASE_URL}}/slots
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "code": "A001"
+}
+
+### Test validation - Invalid status
+POST {{BASE_URL}}/slots
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "aisleId": 1,
+  "code": "A001",
+  "floor": 1,
+  "status": "INVALID_STATUS"
+}
+
+### Test validation - Invalid floor (negative)
+POST {{BASE_URL}}/slots
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "aisleId": 1,
+  "code": "A001",
+  "floor": -1,
+  "status": "AVAILABLE"
+}

@@ -1,10 +1,8 @@
-###
-### Get All Users
-GET http://localhost:3001/user
-Content-Type: application/json
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3NTIzNTIyOTUsImV4cCI6MTc1MjM1NTg5NX0.4EOvDhjGdlsDhtXdgCehbn3parCunORcAvv1uvq-nPQ
+@BASE_URL = http://localhost:3001
 
 ### Create User
-POST http://localhost:3001/user
+POST {{BASE_URL}}/user
 Content-Type: application/json
 
 {
@@ -15,9 +13,23 @@ Content-Type: application/json
   "image": "https://rickandmortyapi.com/api/character/avatar/2.jpeg"
 }
 
-### Update User
-PUT http://localhost:3001/user/5
+###
+### Get All Users
+GET {{BASE_URL}}/user
 Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+###
+### Get User by ID
+GET {{BASE_URL}}/user/3
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+###
+### Update User
+PUT {{BASE_URL}}/user/3
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
 
 {
   "username": "José Dimas Santos",
@@ -26,5 +38,8 @@ Content-Type: application/json
   "image": "https://rickandmortyapi.com/api/character/avatar/2.jpeg"
 }
 
+###
 ### Delete User
-DELETE http://localhost:3001/user/5
+DELETE {{BASE_URL}}/user/3
+Authorization: Bearer {{TOKEN}}
+

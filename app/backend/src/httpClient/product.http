@@ -1,0 +1,79 @@
+@BASE_URL = http://localhost:3001
+@TOKEN = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3NTI0MTg5MzEsImV4cCI6MTc1MjQyMjUzMX0.oT4mtcJLVMlYNFOmjtL5atJzcUyFdYTZA0V6LaTPgV8
+
+### Create a new product
+POST {{BASE_URL}}/products
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "code": "ELEC003",
+  "name": "iPhone 15 Pro",
+  "description": "Latest Apple smartphone with advanced features",
+  "unit": "unit"
+}
+
+### Get all products
+GET {{BASE_URL}}/products
+Authorization: {{TOKEN}}
+
+### Get product by ID
+GET {{BASE_URL}}/products/1
+Authorization: {{TOKEN}}
+
+### Get product by code
+GET {{BASE_URL}}/products/code/P001
+Authorization: {{TOKEN}}
+
+### Get products by unit
+GET {{BASE_URL}}/products/unit/pcs
+Authorization: {{TOKEN}}
+
+### Update product
+PUT {{BASE_URL}}/products/1
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "code": "ELEC001-UPDATED",
+  "name": "Smartphone Galaxy S24 Ultra",
+  "description": "Updated Samsung smartphone with enhanced features",
+  "unit": "unit"
+}
+
+### Delete product
+DELETE {{BASE_URL}}/products/1
+Authorization: {{TOKEN}}
+
+### Test validation - Duplicate code
+POST {{BASE_URL}}/products
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "code": "ELEC001",
+  "name": "Duplicate Product",
+  "description": "This should fail due to duplicate code",
+  "unit": "unit"
+}
+
+### Test validation - Missing required fields
+POST {{BASE_URL}}/products
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "name": "Incomplete Product"
+}
+
+### Test validation - Invalid product ID
+GET {{BASE_URL}}/products/999
+Authorization: {{TOKEN}}
+
+### Test filtering - Non-existent unit
+GET {{BASE_URL}}/products/unit/nonexistent
+Authorization: {{TOKEN}}
+
+### Test filtering - Non-existent code
+GET {{BASE_URL}}/products/code/INVALID001
+Authorization: {{TOKEN}}

@@ -1,19 +1,24 @@
 import { Router } from 'express';
-import LoginRoutes from './LoginRoutes';
+import AuthRoutes from './AuthRoutes';
 import HealthRoute from './HealthRoute';
 import UserRoutes from './UserRoutes';
+import SectorRoutes from './SectorRoutes';
+import AisleRoutes from './AisleRoutes';
+import SlotRoutes from './SlotRoutes';
+import ProductRoutes from './ProductRoutes';
 
-export default class MainRoutes {
-  public router: Router;
+const createMainRoutes = (): Router => {
+  const router = Router();
+  
+  router.use('/', HealthRoute);
+  router.use('/login', AuthRoutes);
+  router.use('/user', UserRoutes);
+  router.use('/sectors', SectorRoutes);
+  router.use('/aisles', AisleRoutes);
+  router.use('/slots', SlotRoutes);
+  router.use('/products', ProductRoutes);
+  
+  return router;
+};
 
-  constructor() {
-    this.router = Router();
-    this.initializeRoutes();
-  }
- 
-  private initializeRoutes() {
-    this.router.use('/', HealthRoute);
-    this.router.use('/login', LoginRoutes);
-    this.router.use('/user', UserRoutes);
-  }
-}
+export default createMainRoutes();

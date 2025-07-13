@@ -1,109 +1,79 @@
-import * as bcript from 'bcrypt';
-import { IUserModel } from '../interfaces/User/IUserModel';
-import { ServiceResponse } from '../utils/ServiceResponse';
-import { IUser, IUserResponse, IUserUpdate } from '../interfaces/User/IUser';
-import { UserModel } from '../models/UserModel';
-import { cacheData, getCached } from './CacheService';
+import * as bcrypt from 'bcrypt';
+import { IResponse } from '../interfaces/IResponse';
+import SequelizeUser from '../database/models/SequelizeUser';
+import { IUser, IUserResponse, IUserUpdate } from '../interfaces/IUser';
 
-// Constants for Service
-const SALT_ROUNDS = 10;
-const CONFLICT = 'CONFLICT';
-const NOT_FOUND = 'NOT_FOUND';
-const SUCCESSFUL = 'SUCCESSFUL';
-const INTERNAL_ERROR = 'INTERNAL_ERROR';
-const FAILED_REGISTER = 'Failed to register user';
-const FAILED_USER_EXISTS = 'User already exists';
-const FAILED_USER_NOT_FOUND = 'User not found';
-const FAILED_GET_USERS = 'Failed to get users';
-const FAILED_UPDATE = 'Failed to update user';
+export class UserService {
+  private USER_NOT_FOUND = 'User not found, please register first';
+  private USER_ALREADY_EXISTS = 'User already exists, please try a different email';
+  private ERROR_CREATING_USER = 'Failed to register user, please try again';
+  private ERROR_FETCHING_USERS = 'Failed to get users, please try again';
 
-class UserService {
-  private userModel: IUserModel;
+  public async findAll(): Promise<IResponse<IUserResponse[]>> {
+    const users = await SequelizeUser.findAll({ 
+      attributes: { exclude: ['password'] } 
+    });
 
-  constructor(userModel: IUserModel = new UserModel()) {
-    this.userModel = userModel;
-  }
-
-
-  public async getAllUsers(): Promise<ServiceResponse<IUser[]>> {
-    let users = await getCached('users');
-  
     if (!users) {
-      users = await this.userModel.getAll();
-  
-      if (!users) {
-        return { status: INTERNAL_ERROR, data: { message: FAILED_GET_USERS } };
-      }
-  
-      await cacheData('users', users);
-      console.log(users, 'was persisted in redis and created on MySQL');
-    } else {
-      users = JSON.parse(users);
+      return { status: 'INTERNAL_ERROR', data: { message: this.ERROR_FETCHING_USERS } };
     }
-  
-    return { status: SUCCESSFUL, data: users };
+
+    return { status: 'SUCCESSFUL', data: users };
   }
-  
 
-  public async registerUser(user: IUser): Promise<ServiceResponse<IUserResponse>> {
+  public async findById(id: number): Promise<IResponse<IUserResponse>> {
+    const user = await SequelizeUser.findByPk(id, { 
+      attributes: { exclude: ['password'] } 
+    });
 
-    const existingUser = await this.userModel.getByEmail(user.email);
+    if (!user) {
+      return { status: 'NOT_FOUND', data: { message: this.USER_NOT_FOUND } };
+    }
+
+    return { status: 'SUCCESSFUL', data: user };
+  }
+
+  public async create(user: IUser): Promise<IResponse<IUserResponse>> {
+    const existingUser = await SequelizeUser.findOne({ where: { email: user.email } });
 
     if (existingUser) {
-      return { status: CONFLICT, data: { message: FAILED_USER_EXISTS } };
+      return { status: 'CONFLICT', data: { message: this.USER_ALREADY_EXISTS } };
     }
 
-    const passwordHash = await this.hashPassword(user.password);
-    const newUser = await this.userModel.create({ ...user, password: passwordHash });
+    const passwordHash = await bcrypt.hash(user.password, 10);
+    const newUser = await SequelizeUser.create({ ...user, password: passwordHash });
 
     if (!newUser) {
-      return { status: INTERNAL_ERROR, data: { message: FAILED_REGISTER } };
+      return { status: 'INTERNAL_ERROR', data: { message: this.ERROR_CREATING_USER } };
     }
 
-    return { status: SUCCESSFUL, data: newUser };
+    const { password, ...userWithoutPassword } = newUser.get();
+    return { status: 'SUCCESSFUL', data: userWithoutPassword };
   }
 
-  
-  public async updateUser(id: number, user: IUserUpdate): Promise<ServiceResponse<IUserResponse>> {
+  public async update(id: number, 
+    user: IUserUpdate
+  ): Promise<IResponse<IUserResponse>> {
+    const [affectedRows] = await SequelizeUser.update(user, { where: { id } });
 
-    const userExists = await this.userModel.getById(id);
-
-    if (!userExists) {
-      return { status: NOT_FOUND, data: { message: FAILED_USER_NOT_FOUND } };
+    if (affectedRows === 0) {
+      return { status: 'NOT_FOUND', data: { message: this.USER_NOT_FOUND } };
     }
 
-    const updatedUser = await this.userModel.update(id, user);
+    const updatedUser = await SequelizeUser.findByPk(id, { 
+      attributes: { exclude: ['password'] } 
+    });
 
-    if (!updatedUser) {
-      return { status: INTERNAL_ERROR, data: { message: FAILED_UPDATE } };
-    }
-
-    return { status: SUCCESSFUL, data: updatedUser };
+    return { status: 'SUCCESSFUL', data: updatedUser! };
   }
 
+  public async remove(id: number): Promise<IResponse<boolean>> {
+    const deletedRows = await SequelizeUser.destroy({ where: { id } });
 
-  public async deleteUser(id: number): Promise<ServiceResponse<boolean>> {
-
-    const userExists = await this.userModel.getById(id);
-
-    if (!userExists) {
-      return { status: NOT_FOUND, data: { message: FAILED_USER_NOT_FOUND } };
+    if (deletedRows === 0) {
+      return { status: 'NOT_FOUND', data: { message: this.USER_NOT_FOUND } };
     }
 
-    const deleted = await this.userModel.delete(id);
-
-    if (!deleted) {
-      return { status: INTERNAL_ERROR, data: deleted };
-    }
-
-    return { status: SUCCESSFUL, data: deleted };
+    return { status: 'SUCCESSFUL', data: true };
   }
-
-
-  private async hashPassword(password: string): Promise<string> {
-    return bcript.hash(password, SALT_ROUNDS);
-  }
-
 }
-
-export { UserService };

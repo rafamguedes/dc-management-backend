@@ -1,0 +1,48 @@
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3NTIzNzUxMDAsImV4cCI6MTc1MjM3ODcwMH0.-vIpjNdx7YpA7vvoipDN3jelrxxKy8q0IgPTpuiHanU
+@BASE_URL = http://localhost:3001
+
+### Create Aisle
+POST {{BASE_URL}}/aisles
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+  "sectorId": 1,
+  "code": "A04",
+  "description": "Cloud Infrastructure and DevOps"
+}
+
+###
+### Get All Aisles
+GET {{BASE_URL}}/aisles
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+###
+### Get Aisle by ID
+GET {{BASE_URL}}/aisles/1
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+###
+### Get Aisles by Sector
+GET {{BASE_URL}}/aisles/sector/1
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+###
+### Update Aisle
+PUT {{BASE_URL}}/aisles/1
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+  "sectorId": 1,
+  "code": "A01-UPD",
+  "description": "Updated Software Development Tools and IDEs with Modern Frameworks"
+}
+
+###
+### Delete Aisle
+DELETE {{BASE_URL}}/aisles/14
+Authorization: Bearer {{TOKEN}}
