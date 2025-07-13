@@ -6,7 +6,7 @@ import {
   CreationOptional,
   ForeignKey,
 } from 'sequelize';
-import db from './Models';
+import db from '.';
 import SequelizeAisle from './SequelizeAisle';
 
 type SlotStatus = 'available' | 'occupied' | 'maintenance';
@@ -73,7 +73,9 @@ SequelizeSlot.init({
   },
 }, {
   sequelize: db,
-  modelName: 'slots',
+  modelName: 'Slot',
+  tableName: 'slots',
+  underscored: false,
   timestamps: true,
   indexes: [
     {

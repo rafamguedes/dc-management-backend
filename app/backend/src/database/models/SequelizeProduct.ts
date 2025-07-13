@@ -5,7 +5,7 @@ import {
   InferCreationAttributes,
   CreationOptional,
 } from 'sequelize';
-import db from './Models';
+import db from '.';
 
 class SequelizeProduct extends Model<InferAttributes<SequelizeProduct>,
 InferCreationAttributes<SequelizeProduct>> {
@@ -60,7 +60,9 @@ SequelizeProduct.init({
   },
 }, {
   sequelize: db,
-  modelName: 'products',
+  modelName: 'Product',
+  tableName: 'products',
+  underscored: false,
   timestamps: true,
 });
 

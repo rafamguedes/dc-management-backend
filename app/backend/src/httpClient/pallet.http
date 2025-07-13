@@ -1,0 +1,125 @@
+@BASE_URL = http://localhost:3001
+@TOKEN = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3NTI0MzY2MzAsImV4cCI6MTc1MjQ0MDIzMH0.T6jbM_Tvya-RJKgdWz5A93AHCiYccDzOJ81t-e8P5As
+
+### Get all pallets (Protected)
+GET {{BASE_URL}}/pallets
+Authorization: {{TOKEN}}
+
+### Get pallet by ID (Protected)
+GET {{BASE_URL}}/pallets/1
+Authorization: {{TOKEN}}
+
+### Get pallets by type (Protected)
+GET {{BASE_URL}}/pallets/type/master
+Authorization: {{TOKEN}}
+
+### Get pallets by slot ID (Protected)
+GET {{BASE_URL}}/pallets/slot/1
+Authorization: {{TOKEN}}
+
+### Get unassigned pallets (Public)
+GET {{BASE_URL}}/pallets/unassigned
+
+### Find pallet by QR code (Public)
+GET {{BASE_URL}}/pallets/qr/PAL-MAIN-001
+
+### Find pallet by small QR code (Public)
+GET {{BASE_URL}}/pallets/qrsmall/PAL-SM-001
+
+### Create new pallet (Protected)
+POST {{BASE_URL}}/pallets
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "type": "master",
+  "qrCode": "PAL-MAIN-001",
+  "qrCodeSmall": "PAL-SM-001",
+  "slotId": 1
+}
+
+### Create pallet without slot assignment (Protected)
+POST {{BASE_URL}}/pallets
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "type": "master",
+  "qrCode": "PAL-MAIN-002",
+  "qrCodeSmall": "PAL-SM-002"
+}
+
+### Update pallet (Protected)
+PUT {{BASE_URL}}/pallets/1
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "type": "COMMERCIAL",
+  "qrCode": "PAL-MAIN-001-UPDATED",
+  "qrCodeSmall": "PAL-SM-001-UPDATED"
+}
+
+### Assign pallet to slot (Protected)
+PATCH {{BASE_URL}}/pallets/1/assign
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "slotId": 2
+}
+
+### Unassign pallet from slot (Protected)
+PATCH {{BASE_URL}}/pallets/1/unassign
+Authorization: {{TOKEN}}
+
+### Delete pallet (Protected)
+DELETE {{BASE_URL}}/pallets/1
+Authorization: {{TOKEN}}
+
+### Test validation errors
+
+### Create pallet with invalid type
+POST {{BASE_URL}}/pallets
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "type": "INVALID_TYPE",
+  "qrCode": "PAL-MAIN-003",
+  "qrCodeSmall": "PAL-SM-003"
+}
+
+### Create pallet with missing QR code
+POST {{BASE_URL}}/pallets
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "type": "INDUSTRIAL",
+  "qrCodeSmall": "PAL-SM-004"
+}
+
+### Create pallet with short QR code
+POST {{BASE_URL}}/pallets
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "type": "INDUSTRIAL",
+  "qrCode": "PAL",
+  "qrCodeSmall": "SM"
+}
+
+### Get pallet with invalid ID format
+GET {{BASE_URL}}/pallets/invalid-id
+Authorization: {{TOKEN}}
+
+### Assign pallet with invalid slot ID
+PATCH {{BASE_URL}}/pallets/1/assign
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "slotId": "invalid-slot-id"
+}

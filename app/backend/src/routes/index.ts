@@ -6,6 +6,7 @@ import SectorRoutes from './SectorRoutes';
 import AisleRoutes from './AisleRoutes';
 import SlotRoutes from './SlotRoutes';
 import ProductRoutes from './ProductRoutes';
+import PalletRoutes from './PalletRoutes';
 
 const createMainRoutes = (): Router => {
   const router = Router();
@@ -17,6 +18,7 @@ const createMainRoutes = (): Router => {
   router.use('/aisles', AisleRoutes);
   router.use('/slots', SlotRoutes);
   router.use('/products', ProductRoutes);
+  router.use('/pallets', PalletRoutes);
   
   return router;
 };

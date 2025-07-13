@@ -6,7 +6,7 @@ import {
   CreationOptional,
   ForeignKey,
 } from 'sequelize';
-import db from './Models';
+import db from '.';
 import SequelizeSector from './SequelizeSector';
 
 class SequelizeAisle extends Model<InferAttributes<SequelizeAisle>,
@@ -61,7 +61,9 @@ SequelizeAisle.init({
   },
 }, {
   sequelize: db,
-  modelName: 'aisles',
+  modelName: 'Aisle',
+  tableName: 'aisles',
+  underscored: false,
   timestamps: true,
   indexes: [
     {

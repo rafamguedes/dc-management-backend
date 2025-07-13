@@ -5,7 +5,7 @@ import {
   InferCreationAttributes,
   CreationOptional,
 } from 'sequelize';
-import db from './Models';
+import db from '.';
 
 class SequelizeSector extends Model<InferAttributes<SequelizeSector>,
 InferCreationAttributes<SequelizeSector>> {
@@ -48,7 +48,9 @@ SequelizeSector.init({
   },
 }, {
   sequelize: db,
-  modelName: 'sectors',
+  modelName: 'Sector',
+  tableName: 'sectors',
+  underscored: false,
   timestamps: true,
 });
 

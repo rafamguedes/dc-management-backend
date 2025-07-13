@@ -5,7 +5,7 @@ import {
   InferCreationAttributes,
   CreationOptional,
 } from 'sequelize';
-import db from './Models';
+import db from '.';
 
 class SequelizeUser extends Model<InferAttributes<SequelizeUser>,
 InferCreationAttributes<SequelizeUser>> {
@@ -51,7 +51,9 @@ SequelizeUser.init({
   }
 }, {
   sequelize: db,
-  modelName: 'users',
+  modelName: 'User',
+  tableName: 'users',
+  underscored: false,
   timestamps: false,
 });
 
