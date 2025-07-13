@@ -1,0 +1,219 @@
+@BASE_URL = http://localhost:3001
+@TOKEN = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0ZUBleGFtcGxlLmNvbSIsImlhdCI6MTczNDE4NzAzNywiZXhwIjoxNzM0MjczNDM3fQ.kF1HDcyaYLIBNR4OhyXx1ZGOCbdI8nZf9D4Zv6_BbQs
+
+### Public Endpoints
+
+### Get all pallet products with details (Public)
+GET {{BASE_URL}}/pallet-products/details
+
+### Get expired products (Public)
+GET {{BASE_URL}}/pallet-products/expired
+
+### Get products expiring soon - default 7 days (Public)
+GET {{BASE_URL}}/pallet-products/expiring
+
+### Get products expiring in 30 days (Public)
+GET {{BASE_URL}}/pallet-products/expiring/30
+
+### Get inventory summary (Public)
+GET {{BASE_URL}}/pallet-products/summary
+
+### Protected Endpoints
+
+### Get all pallet products (Protected)
+GET {{BASE_URL}}/pallet-products
+Authorization: {{TOKEN}}
+
+### Get pallet product by ID (Protected)
+GET {{BASE_URL}}/pallet-products/1
+Authorization: {{TOKEN}}
+
+### Get pallet products by pallet ID (Protected)
+GET {{BASE_URL}}/pallet-products/pallet/1
+Authorization: {{TOKEN}}
+
+### Get pallet products by pallet ID with details (Protected)
+GET {{BASE_URL}}/pallet-products/pallet/1/details
+Authorization: {{TOKEN}}
+
+### Get pallet products by product ID (Protected)
+GET {{BASE_URL}}/pallet-products/product/1
+Authorization: {{TOKEN}}
+
+### Get pallet products by product ID with details (Protected)
+GET {{BASE_URL}}/pallet-products/product/1/details
+Authorization: {{TOKEN}}
+
+### Create new pallet product (Protected)
+POST {{BASE_URL}}/pallet-products
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "palletId": 1,
+  "productId": 1,
+  "quantity": 50,
+  "expiryDate": "2025-12-31",
+  "manufactureDate": "2024-06-15"
+}
+
+### Create pallet product without dates (Protected)
+POST {{BASE_URL}}/pallet-products
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "palletId": 2,
+  "productId": 3,
+  "quantity": 75
+}
+
+### Bulk create pallet products (Protected)
+POST {{BASE_URL}}/pallet-products/bulk
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "palletProducts": [
+    {
+      "palletId": 3,
+      "productId": 2,
+      "quantity": 30,
+      "expiryDate": "2025-08-15",
+      "manufactureDate": "2024-05-10"
+    },
+    {
+      "palletId": 3,
+      "productId": 4,
+      "quantity": 25,
+      "expiryDate": "2025-09-30",
+      "manufactureDate": "2024-04-20"
+    },
+    {
+      "palletId": 4,
+      "productId": 1,
+      "quantity": 100
+    }
+  ]
+}
+
+### Update pallet product (Protected)
+PUT {{BASE_URL}}/pallet-products/1
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "quantity": 60,
+  "expiryDate": "2025-11-30"
+}
+
+### Update only quantity (Protected)
+PUT {{BASE_URL}}/pallet-products/2
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "quantity": 80
+}
+
+### Delete pallet product (Protected)
+DELETE {{BASE_URL}}/pallet-products/1
+Authorization: {{TOKEN}}
+
+### Delete all pallet products for a pallet (Protected)
+DELETE {{BASE_URL}}/pallet-products/pallet/1
+Authorization: {{TOKEN}}
+
+### Delete all pallet products for a product (Protected)
+DELETE {{BASE_URL}}/pallet-products/product/1
+Authorization: {{TOKEN}}
+
+### Test validation errors
+
+### Create pallet product with invalid data
+POST {{BASE_URL}}/pallet-products
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "palletId": "invalid",
+  "productId": 1,
+  "quantity": -5,
+  "expiryDate": "invalid-date"
+}
+
+### Create pallet product with expiry before manufacture
+POST {{BASE_URL}}/pallet-products
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "palletId": 1,
+  "productId": 2,
+  "quantity": 50,
+  "expiryDate": "2024-01-01",
+  "manufactureDate": "2024-06-01"
+}
+
+### Create pallet product with future manufacture date
+POST {{BASE_URL}}/pallet-products
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "palletId": 1,
+  "productId": 3,
+  "quantity": 50,
+  "manufactureDate": "2030-01-01"
+}
+
+### Create pallet product with missing required fields
+POST {{BASE_URL}}/pallet-products
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "quantity": 50
+}
+
+### Update with invalid quantity
+PUT {{BASE_URL}}/pallet-products/1
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "quantity": 0
+}
+
+### Update with no fields (should fail validation)
+PUT {{BASE_URL}}/pallet-products/1
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{}
+
+### Get non-existent pallet product
+GET {{BASE_URL}}/pallet-products/999
+Authorization: {{TOKEN}}
+
+### Bulk create with mixed valid/invalid data
+POST {{BASE_URL}}/pallet-products/bulk
+Authorization: {{TOKEN}}
+Content-Type: application/json
+
+{
+  "palletProducts": [
+    {
+      "palletId": 5,
+      "productId": 1,
+      "quantity": 40,
+      "expiryDate": "2025-07-15",
+      "manufactureDate": "2024-03-10"
+    },
+    {
+      "palletId": 1,
+      "productId": 1,
+      "quantity": 25
+    }
+  ]
+}
