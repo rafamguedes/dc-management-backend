@@ -1,20 +1,13 @@
-//
-import { App } from './app';
-
-class Server {
-  private app: App;
-
-  private port: string | number;
-
-  constructor(port: string | number) {
-    this.app = new App();
-    this.port = port;
-  }
-
-  public start() {
-    this.app.start(this.port);
-  }
-}
+import { createApp } from './app';
 
 const PORT = process.env.PORT || 3001;
-new Server(PORT).start();
+
+const startServer = () => {
+  const app = createApp();
+  
+  app.listen(PORT, () => {
+    console.log(`Server running on port: ${PORT}!!`);
+  });
+};
+
+startServer();
