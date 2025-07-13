@@ -1,40 +1,73 @@
-import { useState } from 'react';
-import { FaSearch, FaLinkedinIn, FaGithub } from 'react-icons/fa';
-import { Title, Search, Icons, HeaderContainer } from './Style';
-import { Link } from 'react-router-dom';
+import { 
+  Group, 
+  Title, 
+  ActionIcon, 
+  Tooltip,
+  Paper
+} from '@mantine/core';
+import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
+import { useLocation } from 'react-router-dom';
 
 type HeaderProps = {
-  handleSearch: (value: string) => void;
+  title?: string;
 };
 
-const Header = ({ handleSearch }: HeaderProps) => {
-  const [searchValue, setSearchValue] = useState('');
+const Header = ({ title }: HeaderProps) => {
+  const location = useLocation();
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      handleSearch(searchValue);
+  const getPageTitle = () => {
+    if (title) return title;
+    
+    switch (location.pathname) {
+      case '/dashboard':
+        return 'Dashboard Management';
+      case '/dashboard/users':
+        return 'User Management';
+      case '/dashboard/items':
+        return 'Item Management';
+      default:
+        return 'Dashboard';
     }
   };
 
   return (
-    <HeaderContainer>
-      <Title>
-        <h1>Dashboard</h1>
-      </Title>
-      <Search>
-        <input
-          type="text"
-          placeholder="Search"
-          onChange={ (e) => setSearchValue(e.target.value) }
-          onKeyDown={ handleKeyDown }
-        />
-        <FaSearch size={ 25 } onClick={() => handleSearch(searchValue)} />
-      </Search>
-      <Icons data-testid="iconsHeader">
-        <Link to="https://www.linkedin.com/in/rafael-magalh%C3%A3es-guedes/" target="_blank"><FaLinkedinIn size={ 25 } /></Link>
-        <Link to="https://github.com/rafaelmagalhaesguedes" target="_blank"><FaGithub size={ 25 } /></Link>
-      </Icons>
-    </HeaderContainer>
+    <Paper shadow="sm" p="md" mb="md" withBorder>
+      <Group justify="space-between" align="center">
+        <Title order={1} size="h2" c="dark">
+          {getPageTitle()}
+        </Title>
+
+        <Group gap="xs" data-testid="iconsHeader">
+          <Tooltip label="LinkedIn Profile" position="bottom">
+            <ActionIcon
+              component="a"
+              href="https://www.linkedin.com/in/rafael-magalh%C3%A3es-guedes/"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="subtle"
+              size="lg"
+              color="blue"
+            >
+              <FaLinkedinIn size={20} />
+            </ActionIcon>
+          </Tooltip>
+
+          <Tooltip label="GitHub Profile" position="bottom">
+            <ActionIcon
+              component="a"
+              href="https://github.com/rafaelmagalhaesguedes"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="subtle"
+              size="lg"
+              color="dark"
+            >
+              <FaGithub size={20} />
+            </ActionIcon>
+          </Tooltip>
+        </Group>
+      </Group>
+    </Paper>
   );
 };
 

@@ -2,9 +2,9 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router';
 import { User } from '../types/UserTypes';
 import { useState, useEffect } from 'react';
-import ApiService from '../services/UserService';
+import { getUsers, updateUser, deleteUser } from '../services/userService';
 
-const useDashboard = () => {
+const useUser = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState<User[]>([]);
   const [allUsers, setAllUsers] = useState<User[]>([]);
@@ -15,7 +15,7 @@ const useDashboard = () => {
   useEffect(() => {
     const handleFetch = async () => {
       try {
-        const response = await ApiService.getUsers();
+        const response = await getUsers();
         const uniqueUsers = response.data.filter((user: User, index: number, self: User[]) =>
           index === self.findIndex((u: User) => u.username === user.username)
         );
@@ -37,16 +37,6 @@ const useDashboard = () => {
     } else {
       const filteredUsers = allUsers.filter((user) => user.role === role);
       setUsers(filteredUsers);
-    }
-  };
-
-  const handleSearch = async (search: string) => {
-    try {
-      const searchResult = allUsers.filter((user) =>
-        user.username.toLowerCase().includes(search.toLowerCase()));
-      setUsers(searchResult);
-    } catch (error) {
-      console.error('Failed to search users:', error);
     }
   };
 
@@ -75,7 +65,7 @@ const useDashboard = () => {
 
   const handleUpdate = async (id: number) => {
     try {
-      await ApiService.updateUser(id, { role: editedRole } as User);
+      await updateUser(id, { role: editedRole } as User);
       const updatedUsers = users.map((user) => {
         if (+user.id === id) {
           return { ...user, role: editedRole };
@@ -112,7 +102,7 @@ const useDashboard = () => {
     if (!result.isConfirmed) return;
 
     try {
-      await ApiService.deleteUser(id);
+      await deleteUser(id);
       const deletedUser = users.filter((user) => +user.id !== id);
       setUsers(deletedUser);
       Swal.fire({
@@ -144,20 +134,34 @@ const useDashboard = () => {
     navigate('/');
   };
 
+  const handleRefresh = async () => {
+    try {
+      const response = await getUsers();
+      const uniqueUsers = response.data.filter((user: User, index: number, self: User[]) =>
+        index === self.findIndex((u: User) => u.username === user.username)
+      );
+      const sortByRole = uniqueUsers.sort((a: User, b: User) => a.role.localeCompare(b.role));
+      setUsers(sortByRole);
+      setAllUsers(sortByRole);
+    } catch (error) {
+      console.error('Failed to refresh users:', error);
+    }
+  };
+
   return {
     users,
     loading,
     editingId,
     editedRole,
     setUsers,
-    handleSearch,
     handleEdit,
     handleUpdate,
     handleDelete,
     handleLogout,
     setEditedRole,
     handleFilter,
+    handleRefresh,
   };
 };
 
-export default useDashboard;
+export default useUser;

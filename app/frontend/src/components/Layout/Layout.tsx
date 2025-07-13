@@ -1,17 +1,20 @@
+import { AppShell } from '@mantine/core';
 import NavBarSide from '../../components/NavBar/NavBarSide';
-import { Container, Main, Section } from './Style';
 import { Outlet } from 'react-router';
 
 export function Layout() {
-
   return (
-    <Container>
-      <Main>
+    <AppShell
+      navbar={{ width: 280, breakpoint: 'sm' }}
+      padding="md"
+    >
+      <AppShell.Navbar>
         <NavBarSide />
-        <Section>
-          <Outlet />
-        </Section>
-      </Main>
-    </Container>
+      </AppShell.Navbar>
+
+      <AppShell.Main>
+        <Outlet />
+      </AppShell.Main>
+    </AppShell>
   );
 }
