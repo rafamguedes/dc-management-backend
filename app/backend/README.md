@@ -1,6 +1,6 @@
 # Sistema de autenticação de usuários
 
-Sistema de autenticação de usuários utilizando Node.js, Express, TypeScript, JWT, Sequelize e MySQL.
+Sistema de autenticação de usuários utilizando Node.js, Express, TypeScript, JWT, Sequelize e PostgreSQL.
 
 ## Princípios e Práticas
 
@@ -31,7 +31,7 @@ Login
 
    - npm install
 
-#### 3. __Na raiz do projeto, rode o docker compose para subir o backend e o banco de dados.__
+#### 3. __Na raiz do projeto, rode o docker compose para subir o backend e o banco de dados PostgreSQL.__
 
    - start
 
@@ -41,7 +41,11 @@ Login
 
    npm run compose:down
 
-#### 4. __Para rodar os tests__
+#### 4. __Para testar a conexão com PostgreSQL__
+
+   - npm run test:pg
+
+#### 5. __Para rodar os tests__
 
   - npm test
 

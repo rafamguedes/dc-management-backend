@@ -1,6 +1,9 @@
 import { QueryInterface, DataTypes } from 'sequelize';
 export default {
   up: async (queryInterface: QueryInterface) => {
+    // Create enum type for PostgreSQL
+    await queryInterface.sequelize.query('CREATE TYPE "enum_pallets_type" AS ENUM (\'master\', \'single\');');
+    
     await queryInterface.createTable('pallets', {
       id: {
         allowNull: false,
@@ -67,5 +70,6 @@ export default {
 
   down: async (queryInterface: QueryInterface) => {
     await queryInterface.dropTable('pallets');
+    await queryInterface.sequelize.query('DROP TYPE "enum_pallets_type";');
   }
 };
