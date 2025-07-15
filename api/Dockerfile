@@ -1,6 +1,6 @@
 FROM node:16.14-slim
 
-WORKDIR /app
+WORKDIR /api
 
 COPY package*.json ./
 RUN npm install
