@@ -22,6 +22,26 @@ export default {
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL'
       },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
+      },
+      productId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'products',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
+      },
       qrCode: {
         type: DataTypes.STRING(100),
         allowNull: false,

@@ -2,7 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PalletService = void 0;
 const SequelizePallet_1 = require("../database/models/SequelizePallet");
+const SequelizeUser_1 = require("../database/models/SequelizeUser");
+const SequelizeProduct_1 = require("../database/models/SequelizeProduct");
 const sequelize_1 = require("sequelize");
+const QRCode = require("qrcode");
 class PalletService {
     constructor() {
         this.PALLET_NOT_FOUND = 'Pallet not found';
@@ -12,6 +15,8 @@ class PalletService {
         this.ERROR_UPDATING_PALLET = 'Failed to update pallet, please try again';
         this.ERROR_DELETING_PALLET = 'Failed to delete pallet, please try again';
         this.palletModel = SequelizePallet_1.default;
+        this.userModel = SequelizeUser_1.default;
+        this.productModel = SequelizeProduct_1.default;
     }
     async findAll() {
         try {
@@ -99,22 +104,36 @@ class PalletService {
     }
     async create(palletData) {
         try {
-            const existingPallet = await this.palletModel.findOne({
-                where: {
-                    [sequelize_1.Op.or]: [
-                        { qrCode: palletData.qrCode },
-                        { qrCodeSmall: palletData.qrCodeSmall }
-                    ]
+            if (palletData.userId) {
+                const user = await this.userModel.findByPk(palletData.userId);
+                if (!user) {
+                    return { status: 'NOT_FOUND', data: { message: 'User not found' } };
                 }
-            });
-            if (existingPallet) {
-                return { status: 'CONFLICT', data: { message: this.PALLET_ALREADY_EXISTS } };
             }
+            if (palletData.productId) {
+                const product = await this.productModel.findByPk(palletData.productId);
+                if (!product) {
+                    return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
+                }
+            }
+            const qrData = JSON.stringify({
+                type: palletData.type,
+                slotId: palletData.slotId,
+                userId: palletData.userId,
+                productId: palletData.productId,
+                createdAt: new Date().toISOString()
+            });
+            const [qrCode, qrCodeSmall] = await Promise.all([
+                QRCode.toDataURL(qrData, { scale: 10 }), // QR Code normal
+                QRCode.toDataURL(qrData, { scale: 5, width: 100 }) // QR Code pequeno
+            ]);
             const dataToCreate = {
                 type: palletData.type,
                 slotId: palletData.slotId || null,
-                qrCode: palletData.qrCode,
-                qrCodeSmall: palletData.qrCodeSmall,
+                userId: palletData.userId || null,
+                productId: palletData.productId || null,
+                qrCode,
+                qrCodeSmall,
             };
             const newPallet = await this.palletModel.create(dataToCreate);
             if (!newPallet) {

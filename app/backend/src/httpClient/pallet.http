@@ -1,5 +1,5 @@
 @BASE_URL = http://localhost:3001
-@TOKEN = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3NTI0MzY2MzAsImV4cCI6MTc1MjQ0MDIzMH0.T6jbM_Tvya-RJKgdWz5A93AHCiYccDzOJ81t-e8P5As
+@TOKEN = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE3NTI1ODM5NzQsImV4cCI6MTc1MjU4NzU3NH0.9IqGnlASqXO3G5HoCrPkobRDm1bSqVbyX90iPNttzIs
 
 ### Get all pallets (Protected)
 GET {{BASE_URL}}/pallets
@@ -33,9 +33,9 @@ Content-Type: application/json
 
 {
   "type": "master",
-  "qrCode": "PAL-MAIN-001",
-  "qrCodeSmall": "PAL-SM-001",
-  "slotId": 1
+  "slotId": 11,
+  "userId": 2,
+  "productId": 3
 }
 
 ### Create pallet without slot assignment (Protected)
@@ -45,8 +45,9 @@ Content-Type: application/json
 
 {
   "type": "master",
-  "qrCode": "PAL-MAIN-002",
-  "qrCodeSmall": "PAL-SM-002"
+  "slotId": 10,
+  "userId": 2,
+  "productId": 3
 }
 
 ### Update pallet (Protected)

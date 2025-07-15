@@ -1,7 +1,11 @@
 import SequelizePallet from '../database/models/SequelizePallet';
 import { IResponse } from '../interfaces/IResponse';
 import { IPallet } from '../interfaces/IPallet';
+import SequelizeUser from '../database/models/SequelizeUser';
+import SequelizeProduct from '../database/models/SequelizeProduct';
+import SequelizeSlot from '../database/models/SequelizeSlot';
 import { Op } from 'sequelize';
+import * as QRCode from 'qrcode';
 
 export class PalletService {
   private PALLET_NOT_FOUND = 'Pallet not found';
@@ -12,6 +16,9 @@ export class PalletService {
   private ERROR_DELETING_PALLET = 'Failed to delete pallet, please try again';
 
   private palletModel = SequelizePallet;
+  private userModel = SequelizeUser;
+  private productModel = SequelizeProduct;
+  private slotModel = SequelizeSlot;
 
   public async findAll(): Promise<IResponse<IPallet[]>> {
     try {
@@ -113,29 +120,52 @@ export class PalletService {
 
   public async create(palletData: { 
     type: 'master' | 'single'; 
-    slotId?: number | null; 
-    qrCode: string; 
-    qrCodeSmall: string 
+    slotId?: number | null;
+    userId?: number | null;
+    productId?: number | null;
   }): Promise<IResponse<IPallet>> {
     try {
-      const existingPallet = await this.palletModel.findOne({ 
-        where: { 
-          [Op.or]: [
-            { qrCode: palletData.qrCode },
-            { qrCodeSmall: palletData.qrCodeSmall }
-          ]
-        } 
-      });
-
-      if (existingPallet) {
-        return { status: 'CONFLICT', data: { message: this.PALLET_ALREADY_EXISTS } };
+      // Validate user if provided
+      if (palletData.userId) {
+        const user = await this.userModel.findByPk(palletData.userId);
+        if (!user) {
+          return { status: 'NOT_FOUND', data: { message: 'User not found' } };
+        }
       }
+
+      // Validate product if provided
+      if (palletData.productId) {
+        const product = await this.productModel.findByPk(palletData.productId);
+        if (!product) {
+          return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
+        }
+      }
+
+      // Validate and check slot availability if provided
+      if (palletData.slotId) {
+        const slot = await this.slotModel.findByPk(palletData.slotId);
+        if (!slot) {
+          return { status: 'NOT_FOUND', data: { message: 'Slot not found' } };
+        }
+        if (slot.status !== 'available') {
+          return { status: 'CONFLICT', data: { message: 'Slot is not available' } };
+        }
+      }
+
+      // Generate simple QR codes (text format instead of SVG to avoid potential issues)
+      const timestamp = Date.now();
+      const randomSuffix = Math.random().toString(36).substring(2, 8).toUpperCase();
+      
+      const qrCodeText = `PAL-${palletData.type.toUpperCase()}-${timestamp}-${randomSuffix}`;
+      const qrCodeSmallText = `PAL-SM-${timestamp}-${randomSuffix}`;
 
       const dataToCreate = {
         type: palletData.type,
         slotId: palletData.slotId || null,
-        qrCode: palletData.qrCode,
-        qrCodeSmall: palletData.qrCodeSmall,
+        userId: palletData.userId || null,
+        productId: palletData.productId || null,
+        qrCode: qrCodeText,
+        qrCodeSmall: qrCodeSmallText,
       };
       
       const newPallet = await this.palletModel.create(dataToCreate);
@@ -143,9 +173,18 @@ export class PalletService {
       if (!newPallet) {
         return { status: 'INTERNAL_ERROR', data: { message: this.ERROR_CREATING_PALLET } };
       }
+
+      // Update slot status if a slot was assigned
+      if (palletData.slotId) {
+        await this.slotModel.update(
+          { status: 'occupied' },
+          { where: { id: palletData.slotId } }
+        );
+      }
       
       return { status: 'CREATED', data: newPallet.get() };
     } catch (error) {
+      console.error('Error creating pallet:', error);
       return { status: 'INTERNAL_ERROR', data: { message: this.ERROR_CREATING_PALLET } };
     }
   }

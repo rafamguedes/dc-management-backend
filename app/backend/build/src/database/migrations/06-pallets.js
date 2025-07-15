@@ -24,6 +24,26 @@ exports.default = {
                 onUpdate: 'CASCADE',
                 onDelete: 'SET NULL'
             },
+            userId: {
+                type: sequelize_1.DataTypes.INTEGER,
+                allowNull: true,
+                references: {
+                    model: 'users',
+                    key: 'id'
+                },
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            },
+            productId: {
+                type: sequelize_1.DataTypes.INTEGER,
+                allowNull: true,
+                references: {
+                    model: 'products',
+                    key: 'id'
+                },
+                onUpdate: 'CASCADE',
+                onDelete: 'SET NULL'
+            },
             qrCode: {
                 type: sequelize_1.DataTypes.STRING(100),
                 allowNull: false,

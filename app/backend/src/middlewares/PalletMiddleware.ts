@@ -14,9 +14,9 @@ import {
 const INVALID_VALUE = 'INVALID_VALUE';
 
 const validateBody = (req: Request, res: Response, next: NextFunction): void => {
-  const { type, slotId, qrCode, qrCodeSmall } = req.body;
+  const { type, slotId, userId, productId } = req.body;
 
-  const { error }: Joi.ValidationResult = bodySchema.validate({ type, slotId, qrCode, qrCodeSmall });
+  const { error }: Joi.ValidationResult = bodySchema.validate({ type, slotId, userId, productId });
 
   if (error) {
     res.status(400).json({ status: INVALID_VALUE, message: error.details[0].message });

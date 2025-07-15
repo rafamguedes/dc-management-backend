@@ -41,12 +41,12 @@ class PalletController {
         return res.status(StatusCode_1.StatusCodes[status]).json(data);
     }
     async create(req, res) {
-        const { type, slotId, qrCode, qrCodeSmall } = req.body;
+        const { type, slotId, userId, productId } = req.body;
         const { status, data } = await this.palletService.create({
             type,
             slotId,
-            qrCode,
-            qrCodeSmall,
+            userId,
+            productId,
         });
         return res.status(StatusCode_1.StatusCodes[status]).json(data);
     }

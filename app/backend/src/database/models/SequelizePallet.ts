@@ -15,6 +15,8 @@ InferCreationAttributes<SequelizePallet>> {
   declare id: CreationOptional<number>;
   declare type: PalletType;
   declare slotId: ForeignKey<number> | null;
+  declare userId: ForeignKey<number> | null;
+  declare productId: ForeignKey<number> | null;
   declare qrCode: string;
   declare qrCodeSmall: string;
   declare createdAt: CreationOptional<Date>;
@@ -40,14 +42,30 @@ SequelizePallet.init({
       key: 'id',
     },
   },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'Users',
+      key: 'id',
+    },
+  },
+  productId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'Products',
+      key: 'id',
+    },
+  },
   qrCode: {
     type: DataTypes.STRING(100),
-    allowNull: false,
+    allowNull: true,
     unique: true,
   },
   qrCodeSmall: {
     type: DataTypes.STRING(100),
-    allowNull: false,
+    allowNull: true,
     unique: true,
   },
   createdAt: {

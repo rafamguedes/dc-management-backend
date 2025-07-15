@@ -23,6 +23,22 @@ SequelizePallet.init({
             key: 'id',
         },
     },
+    userId: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+            model: 'Users',
+            key: 'id',
+        },
+    },
+    productId: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+            model: 'Products',
+            key: 'id',
+        },
+    },
     qrCode: {
         type: sequelize_1.DataTypes.STRING(100),
         allowNull: false,

@@ -50,12 +50,12 @@ export class PalletController {
   }
 
   public async create(req: Request, res: Response): Promise<Response> {
-    const { type, slotId, qrCode, qrCodeSmall } = req.body;
+    const { type, slotId, userId, productId } = req.body;
     const { status, data } = await this.palletService.create({
       type,
       slotId,
-      qrCode,
-      qrCodeSmall,
+      userId,
+      productId,
     });
     return res.status(StatusCodes[status]).json(data);
   }

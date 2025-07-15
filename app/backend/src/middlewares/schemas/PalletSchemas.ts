@@ -19,27 +19,25 @@ export const bodySchema = Joi.object({
       'number.integer': 'Slot ID must be an integer',
       'number.positive': 'Slot ID must be a positive number',
     }),
-  qrCode: Joi.string()
-    .trim()
-    .min(1)
-    .max(100)
-    .required()
+  userId: Joi.number()
+    .integer()
+    .positive()
+    .optional()
+    .allow(null)
     .messages({
-      'string.empty': 'QR Code is required',
-      'string.min': 'QR Code must have at least 1 character',
-      'string.max': 'QR Code must have at most 100 characters',
-      'any.required': 'QR Code is required',
+      'number.base': 'User ID must be a number',
+      'number.integer': 'User ID must be an integer',
+      'number.positive': 'User ID must be a positive number',
     }),
-  qrCodeSmall: Joi.string()
-    .trim()
-    .min(1)
-    .max(100)
-    .required()
+  productId: Joi.number()
+    .integer()
+    .positive()
+    .optional()
+    .allow(null)
     .messages({
-      'string.empty': 'Small QR Code is required',
-      'string.min': 'Small QR Code must have at least 1 character',
-      'string.max': 'Small QR Code must have at most 100 characters',
-      'any.required': 'Small QR Code is required',
+      'number.base': 'Product ID must be a number',
+      'number.integer': 'Product ID must be an integer',
+      'number.positive': 'Product ID must be a positive number',
     }),
 });
 
