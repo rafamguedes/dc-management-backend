@@ -8,9 +8,9 @@
     "npm": ">=8.0.0"
   },
   "scripts": {
-    "prestart": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
-    "start": "node ./build/server",
     "build": "npx tsc",
+    "prestart": "npm run build && npm run db:migrate && npm run db:seed",
+    "start": "node ./build/server",
     "dev": "tsnd --watch \"./src/**\" ./src/server.ts",
     "predev": "npm run db:reset",
     "test": "mocha -r ts-node/register tests/**/**/*.test.ts --exit -t 60000 --exit",
