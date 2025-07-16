@@ -10,7 +10,6 @@
   "scripts": {
     "start": "node build/server.js",
     "build": "tsc",
-    "postbuild": "npm run db:migrate && npm run db:seed",
     "railway:build": "npm run build",
     "railway:start": "npm start",
     "dev": "tsx watch src/server.ts",
@@ -24,7 +23,8 @@
     "compose:down": "docker-compose down --remove-orphans",
     "db:reset": "npx -y tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "db:migrate": "npx sequelize-cli db:migrate",
-    "db:seed": "npx sequelize-cli db:seed:all"
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "db:setup": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   },
   "keywords": [],
   "author": "Rafael Magalhães Guedes",
@@ -41,6 +41,7 @@
     "joi": "^17.12.2",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.3",
+    "pg-connection-string": "^2.7.0",
     "pg-hstore": "^2.3.4",
     "qrcode": "^1.5.4",
     "redis": "^4.6.13",
