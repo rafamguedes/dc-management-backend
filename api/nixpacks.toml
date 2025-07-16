@@ -1,8 +1,13 @@
 [phases.build]
-cmd = "npm run build"
+cmd = "npm run railway:build"
 
 [phases.start]
-cmd = "npm start"
+cmd = "npm run railway:start"
 
 [variables]
 NPM_CONFIG_PRODUCTION = "false"
+PGHOST = "{{.PGHOST}}"
+PGPORT = "{{.PGPORT}}"
+PGUSER = "{{.PGUSER}}"
+PGPASSWORD = "{{.PGPASSWORD}}"
+PGDATABASE = "{{.PGDATABASE}}"
