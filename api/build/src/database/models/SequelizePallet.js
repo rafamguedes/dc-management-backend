@@ -41,12 +41,12 @@ SequelizePallet.init({
     },
     qrCode: {
         type: sequelize_1.DataTypes.STRING(100),
-        allowNull: false,
+        allowNull: true,
         unique: true,
     },
     qrCodeSmall: {
         type: sequelize_1.DataTypes.STRING(100),
-        allowNull: false,
+        allowNull: true,
         unique: true,
     },
     createdAt: {

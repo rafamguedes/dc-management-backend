@@ -9,9 +9,11 @@ const AisleRoutes_1 = require("./AisleRoutes");
 const SlotRoutes_1 = require("./SlotRoutes");
 const ProductRoutes_1 = require("./ProductRoutes");
 const PalletRoutes_1 = require("./PalletRoutes");
+const DocsRoute_1 = require("./DocsRoute");
 const createMainRoutes = () => {
     const router = (0, express_1.Router)();
     router.use('/', HealthRoute_1.default);
+    router.use('/', DocsRoute_1.default);
     router.use('/login', AuthRoutes_1.default);
     router.use('/user', UserRoutes_1.default);
     router.use('/sectors', SectorRoutes_1.default);

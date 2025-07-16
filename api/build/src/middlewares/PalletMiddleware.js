@@ -4,8 +4,8 @@ exports.PalletValidator = void 0;
 const PalletSchemas_1 = require("./schemas/PalletSchemas");
 const INVALID_VALUE = 'INVALID_VALUE';
 const validateBody = (req, res, next) => {
-    const { type, slotId, qrCode, qrCodeSmall } = req.body;
-    const { error } = PalletSchemas_1.bodySchema.validate({ type, slotId, qrCode, qrCodeSmall });
+    const { type, slotId, userId, productId } = req.body;
+    const { error } = PalletSchemas_1.bodySchema.validate({ type, slotId, userId, productId });
     if (error) {
         res.status(400).json({ status: INVALID_VALUE, message: error.details[0].message });
         return;

@@ -4,8 +4,8 @@ exports.PalletService = void 0;
 const SequelizePallet_1 = require("../database/models/SequelizePallet");
 const SequelizeUser_1 = require("../database/models/SequelizeUser");
 const SequelizeProduct_1 = require("../database/models/SequelizeProduct");
+const SequelizeSlot_1 = require("../database/models/SequelizeSlot");
 const sequelize_1 = require("sequelize");
-const QRCode = require("qrcode");
 class PalletService {
     constructor() {
         this.PALLET_NOT_FOUND = 'Pallet not found';
@@ -17,6 +17,7 @@ class PalletService {
         this.palletModel = SequelizePallet_1.default;
         this.userModel = SequelizeUser_1.default;
         this.productModel = SequelizeProduct_1.default;
+        this.slotModel = SequelizeSlot_1.default;
     }
     async findAll() {
         try {
@@ -104,44 +105,55 @@ class PalletService {
     }
     async create(palletData) {
         try {
+            // Validate user if provided
             if (palletData.userId) {
                 const user = await this.userModel.findByPk(palletData.userId);
                 if (!user) {
                     return { status: 'NOT_FOUND', data: { message: 'User not found' } };
                 }
             }
+            // Validate product if provided
             if (palletData.productId) {
                 const product = await this.productModel.findByPk(palletData.productId);
                 if (!product) {
                     return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
                 }
             }
-            const qrData = JSON.stringify({
-                type: palletData.type,
-                slotId: palletData.slotId,
-                userId: palletData.userId,
-                productId: palletData.productId,
-                createdAt: new Date().toISOString()
-            });
-            const [qrCode, qrCodeSmall] = await Promise.all([
-                QRCode.toDataURL(qrData, { scale: 10 }), // QR Code normal
-                QRCode.toDataURL(qrData, { scale: 5, width: 100 }) // QR Code pequeno
-            ]);
+            // Validate and check slot availability if provided
+            if (palletData.slotId) {
+                const slot = await this.slotModel.findByPk(palletData.slotId);
+                if (!slot) {
+                    return { status: 'NOT_FOUND', data: { message: 'Slot not found' } };
+                }
+                if (slot.status !== 'available') {
+                    return { status: 'CONFLICT', data: { message: 'Slot is not available' } };
+                }
+            }
+            // Generate simple QR codes (text format instead of SVG to avoid potential issues)
+            const timestamp = Date.now();
+            const randomSuffix = Math.random().toString(36).substring(2, 8).toUpperCase();
+            const qrCodeText = `PAL-${palletData.type.toUpperCase()}-${timestamp}-${randomSuffix}`;
+            const qrCodeSmallText = `PAL-SM-${timestamp}-${randomSuffix}`;
             const dataToCreate = {
                 type: palletData.type,
                 slotId: palletData.slotId || null,
                 userId: palletData.userId || null,
                 productId: palletData.productId || null,
-                qrCode,
-                qrCodeSmall,
+                qrCode: qrCodeText,
+                qrCodeSmall: qrCodeSmallText,
             };
             const newPallet = await this.palletModel.create(dataToCreate);
             if (!newPallet) {
                 return { status: 'INTERNAL_ERROR', data: { message: this.ERROR_CREATING_PALLET } };
             }
+            // Update slot status if a slot was assigned
+            if (palletData.slotId) {
+                await this.slotModel.update({ status: 'occupied' }, { where: { id: palletData.slotId } });
+            }
             return { status: 'CREATED', data: newPallet.get() };
         }
         catch (error) {
+            console.error('Error creating pallet:', error);
             return { status: 'INTERNAL_ERROR', data: { message: this.ERROR_CREATING_PALLET } };
         }
     }

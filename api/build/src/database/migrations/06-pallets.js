@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 exports.default = {
     up: async (queryInterface) => {
+        // Create enum type for PostgreSQL
+        await queryInterface.sequelize.query('CREATE TYPE "enum_pallets_type" AS ENUM (\'master\', \'single\');');
         await queryInterface.createTable('pallets', {
             id: {
                 allowNull: false,
@@ -68,6 +70,7 @@ exports.default = {
     },
     down: async (queryInterface) => {
         await queryInterface.dropTable('pallets');
+        await queryInterface.sequelize.query('DROP TYPE "enum_pallets_type";');
     }
 };
 //# sourceMappingURL=06-pallets.js.map
