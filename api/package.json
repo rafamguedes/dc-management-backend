@@ -10,8 +10,10 @@
   "scripts": {
     "start": "node build/server.js",
     "build": "tsc",
+    "postbuild": "npm run db:setup",
     "railway:build": "npm run build",
     "railway:start": "npm start",
+    "deploy": "npm run build && npm run db:setup && npm start",
     "dev": "tsx watch src/server.ts",
     "test:load": "ts-node loadTests/getUsers.ts",
     "test:pg": "ts-node test-pg-connection.ts",
