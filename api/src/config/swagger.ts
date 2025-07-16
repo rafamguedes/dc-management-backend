@@ -1,4 +1,4 @@
-import * as swaggerJSDoc from 'swagger-jsdoc';
+import swaggerJSDoc = require('swagger-jsdoc');
 import { SwaggerDefinition } from 'swagger-jsdoc';
 
 const swaggerDefinition: SwaggerDefinition = {

@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/server",
   "scripts": {
-    "start": "ts-node src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsc",
     "dev": "tsx watch src/server.ts",
     "test:load": "ts-node loadTests/getUsers.ts",
     "test:pg": "ts-node test-pg-connection.ts",
@@ -14,7 +15,9 @@
     "lint": "tsc && eslint . --ext .ts",
     "compose:up": "docker-compose up -d --build",
     "compose:down": "docker-compose down --remove-orphans",
-    "db:reset": "npx -y tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
+    "db:reset": "npx -y tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:seed": "npx sequelize-cli db:seed:all"
   },
   "keywords": [],
   "author": "Rafael Magalhães Guedes",

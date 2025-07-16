@@ -4,7 +4,6 @@ import { swaggerSpec } from '../config/swagger';
 
 const router = Router();
 
-// Scalar API Documentation
 router.use('/docs', apiReference({
   theme: 'kepler',
   spec: {
@@ -17,19 +16,18 @@ router.use('/docs', apiReference({
   },
   customCss: `
     .scalar-app {
-      --scalar-color-1: #121212;
-      --scalar-color-2: #1e1e1e;
-      --scalar-color-3: #2d2d2d;
+      --scalar-color-1: #1f2937;
+      --scalar-color-2: #374151;
+      --scalar-color-3: #4b5563;
       --scalar-color-accent: #3b82f6;
-      --scalar-border-color: #404040;
-      --scalar-background-1: #0f0f0f;
-      --scalar-background-2: #1a1a1a;
-      --scalar-background-3: #262626;
+      --scalar-border-color: #e5e7eb;
+      --scalar-background-1: #ffffff;
+      --scalar-background-2: #f9fafb;
+      --scalar-background-3: #f3f4f6;
     }
   `,
 }));
 
-// Alternative: Traditional Swagger UI endpoint
 router.get('/swagger.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);

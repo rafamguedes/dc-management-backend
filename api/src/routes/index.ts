@@ -7,11 +7,13 @@ import AisleRoutes from './AisleRoutes';
 import SlotRoutes from './SlotRoutes';
 import ProductRoutes from './ProductRoutes';
 import PalletRoutes from './PalletRoutes';
+import DocsRoute from './DocsRoute';
 
 const createMainRoutes = (): Router => {
   const router = Router();
   
   router.use('/', HealthRoute);
+  router.use('/', DocsRoute);
   router.use('/login', AuthRoutes);
   router.use('/user', UserRoutes);
   router.use('/sectors', SectorRoutes);
