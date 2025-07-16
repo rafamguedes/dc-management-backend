@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SectorController = void 0;
-const StatusCode_1 = require("../utils/StatusCode");
+const StatusCodes_1 = require("../utils/StatusCodes");
 const SectorService_1 = require("../services/SectorService");
 class SectorController {
     constructor(sectorService = new SectorService_1.SectorService()) {
@@ -15,7 +15,7 @@ class SectorController {
      */
     async findAll(_req, res) {
         const { status, data } = await this.sectorService.findAll();
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
     /**
      * @swagger
@@ -46,7 +46,7 @@ class SectorController {
     async findById(req, res) {
         const { id } = req.params;
         const { status, data } = await this.sectorService.findById(+id);
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
     /**
      * @swagger
@@ -75,7 +75,7 @@ class SectorController {
     async create(req, res) {
         const { body } = req;
         const { status, data } = await this.sectorService.create(body);
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
     /**
      * @swagger
@@ -111,7 +111,7 @@ class SectorController {
         const { body } = req;
         const { id } = req.params;
         const { status, data } = await this.sectorService.update(+id, body);
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
     /**
      * @swagger
@@ -136,7 +136,7 @@ class SectorController {
     async remove(req, res) {
         const { id } = req.params;
         const { status, data } = await this.sectorService.remove(+id);
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
 }
 exports.SectorController = SectorController;

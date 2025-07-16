@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductController = void 0;
-const StatusCode_1 = require("../utils/StatusCode");
+const StatusCodes_1 = require("../utils/StatusCodes");
 const ProductService_1 = require("../services/ProductService");
 /**
  * @swagger
@@ -39,7 +39,7 @@ class ProductController {
      */
     async findAll(_req, res) {
         const { status, data } = await this.productService.findAll();
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
     /**
      * @swagger
@@ -73,7 +73,7 @@ class ProductController {
     async findById(req, res) {
         const { id } = req.params;
         const { status, data } = await this.productService.findById(+id);
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
     /**
      * @swagger
@@ -107,7 +107,7 @@ class ProductController {
     async findByCode(req, res) {
         const { code } = req.params;
         const { status, data } = await this.productService.findByCode(code);
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
     /**
      * @swagger
@@ -143,7 +143,7 @@ class ProductController {
     async findByUnit(req, res) {
         const { unit } = req.params;
         const { status, data } = await this.productService.findByUnit(unit);
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
     /**
      * @swagger
@@ -204,7 +204,7 @@ class ProductController {
             description,
             unit,
         });
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
     /**
      * @swagger
@@ -269,7 +269,7 @@ class ProductController {
             description,
             unit,
         });
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
     /**
      * @swagger
@@ -307,7 +307,7 @@ class ProductController {
     async remove(req, res) {
         const { id } = req.params;
         const { status, data } = await this.productService.remove(+id);
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
 }
 exports.ProductController = ProductController;

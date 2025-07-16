@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
-const StatusCode_1 = require("../utils/StatusCode");
+const StatusCodes_1 = require("../utils/StatusCodes");
 const UserService_1 = require("../services/UserService");
 class UserController {
     constructor(userService = new UserService_1.UserService()) {
@@ -15,7 +15,7 @@ class UserController {
      */
     async findAll(_req, res) {
         const { status, data } = await this.userService.findAll();
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
     /**
      * @swagger
@@ -46,7 +46,7 @@ class UserController {
     async findById(req, res) {
         const { id } = req.params;
         const { status, data } = await this.userService.findById(+id);
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
     /**
      * @swagger
@@ -75,7 +75,7 @@ class UserController {
     async create(req, res) {
         const { body } = req;
         const { status, data } = await this.userService.create(body);
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
     /**
      * @swagger
@@ -115,7 +115,7 @@ class UserController {
         const { body } = req;
         const { id } = req.params;
         const { status, data } = await this.userService.update(+id, body);
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
     /**
      * @swagger
@@ -150,7 +150,7 @@ class UserController {
     async remove(req, res) {
         const { id } = req.params;
         const { status, data } = await this.userService.remove(+id);
-        return res.status(StatusCode_1.StatusCodes[status]).json(data);
+        return res.status(StatusCodes_1.StatusCodes[status]).json(data);
     }
 }
 exports.UserController = UserController;

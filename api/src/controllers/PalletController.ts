@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { StatusCodes } from '../utils/StatusCode';
+import { StatusCodes } from '../utils/StatusCodes';
 import { PalletService } from '../services/PalletService';
 
 /**

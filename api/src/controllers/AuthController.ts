@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { AuthService } from '../services/AuthService';
-import { StatusCodes } from '../utils/StatusCode';
+import { StatusCodes } from '../utils/StatusCodes';
 
 class AuthController {
   private authService: AuthService;
