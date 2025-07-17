@@ -8,7 +8,7 @@
     "npm": ">=8.0.0"
   },
   "scripts": {
-    "prestart": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "prestart": "npx -y tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "start": "node ./build/server",
     "build": "npx tsc",
     "dev": "tsnd --watch \"./src/**\" ./src/server.ts",
