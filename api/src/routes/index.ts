@@ -13,7 +13,7 @@ const createMainRoutes = (): Router => {
   const router = Router();
   
   // Health check route
-  router.use('/', HealthRoute);
+  router.get('/health', HealthRoute);
   
   // Documentation route
   router.use('/docs', DocsRoute);
@@ -31,9 +31,6 @@ const createMainRoutes = (): Router => {
   apiRouter.use('/slots', SlotRoutes);
   apiRouter.use('/products', ProductRoutes);
   apiRouter.use('/pallets', PalletRoutes);
-  
-  // Mount API router with version prefix
-  router.use('/api/v1', apiRouter);
   
   return router;
 };

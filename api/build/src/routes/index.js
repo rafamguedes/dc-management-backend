@@ -13,7 +13,7 @@ const DocsRoute_1 = require("./DocsRoute");
 const createMainRoutes = () => {
     const router = (0, express_1.Router)();
     // Health check route
-    router.use('/', HealthRoute_1.default);
+    router.get('/health', HealthRoute_1.default);
     // Documentation route
     router.use('/docs', DocsRoute_1.default);
     // API routes with version prefix
@@ -27,8 +27,6 @@ const createMainRoutes = () => {
     apiRouter.use('/slots', SlotRoutes_1.default);
     apiRouter.use('/products', ProductRoutes_1.default);
     apiRouter.use('/pallets', PalletRoutes_1.default);
-    // Mount API router with version prefix
-    router.use('/api/v1', apiRouter);
     return router;
 };
 exports.default = createMainRoutes;
