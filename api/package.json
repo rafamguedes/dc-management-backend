@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "npx tsc",
-    "prestart": "npx -y tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "prestart": "npx tsc && npx -y tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "start": "node ./build/server",
     "dev": "tsnd --watch \"./src/**\" ./src/server.ts",
     "predev": "npm run db:reset",
