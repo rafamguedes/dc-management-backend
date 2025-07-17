@@ -2,7 +2,7 @@ import express = require('express');
 
 const createCorsMiddleware = (): express.RequestHandler => {
   return (req, res, next) => {
-    const allowedOrigins = ['http://localhost:5173'];
+    const allowedOrigins = ['*'];
 
     const origin = req.headers.origin;
     
