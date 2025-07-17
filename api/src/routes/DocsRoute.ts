@@ -4,7 +4,7 @@ import { swaggerSpec } from '../config/swagger';
 
 const router = Router();
 
-router.use('/docs', apiReference({
+router.use('/swagger', apiReference({
   theme: 'kepler',
   spec: {
     content: swaggerSpec,

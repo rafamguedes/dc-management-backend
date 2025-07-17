@@ -12,17 +12,30 @@ import DocsRoute from './DocsRoute';
 const createMainRoutes = (): Router => {
   const router = Router();
   
+  // Health check route
   router.use('/', HealthRoute);
-  router.use('/', DocsRoute);
-  router.use('/login', AuthRoutes);
-  router.use('/user', UserRoutes);
-  router.use('/sectors', SectorRoutes);
-  router.use('/aisles', AisleRoutes);
-  router.use('/slots', SlotRoutes);
-  router.use('/products', ProductRoutes);
-  router.use('/pallets', PalletRoutes);
+  
+  // Documentation route
+  router.use('/docs', DocsRoute);
+  
+  // API routes with version prefix
+  const apiRouter = Router();
+  
+  // Auth routes
+  apiRouter.use('/auth', AuthRoutes);
+  
+  // Resource routes
+  apiRouter.use('/users', UserRoutes);
+  apiRouter.use('/sectors', SectorRoutes);
+  apiRouter.use('/aisles', AisleRoutes);
+  apiRouter.use('/slots', SlotRoutes);
+  apiRouter.use('/products', ProductRoutes);
+  apiRouter.use('/pallets', PalletRoutes);
+  
+  // Mount API router with version prefix
+  router.use('/api/v1', apiRouter);
   
   return router;
 };
 
-export default createMainRoutes();
+export default createMainRoutes;

@@ -7,7 +7,7 @@ const createAuthRoutes = (): Router => {
   const authController = new AuthController();
 
   router.post(
-    '/',
+    '/login',
     LoginValidator.validateBody,
     (req: Request, res: Response) => authController.authenticateUser(req, res),
   );
