@@ -4,7 +4,7 @@ const express_1 = require("express");
 const express_api_reference_1 = require("@scalar/express-api-reference");
 const swagger_1 = require("../config/swagger");
 const router = (0, express_1.Router)();
-router.use('/docs', (0, express_api_reference_1.apiReference)({
+router.use('/swagger', (0, express_api_reference_1.apiReference)({
     theme: 'kepler',
     spec: {
         content: swagger_1.swaggerSpec,

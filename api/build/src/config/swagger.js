@@ -15,7 +15,7 @@ const swaggerDefinition = {
     },
     servers: [
         {
-            url: 'http://localhost:3001',
+            url: 'https://dc-management-backend-production.up.railway.app',
             description: 'Development server'
         }
     ],

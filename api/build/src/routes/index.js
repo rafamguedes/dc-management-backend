@@ -12,16 +12,24 @@ const PalletRoutes_1 = require("./PalletRoutes");
 const DocsRoute_1 = require("./DocsRoute");
 const createMainRoutes = () => {
     const router = (0, express_1.Router)();
+    // Health check route
     router.use('/', HealthRoute_1.default);
-    router.use('/', DocsRoute_1.default);
-    router.use('/login', AuthRoutes_1.default);
-    router.use('/user', UserRoutes_1.default);
-    router.use('/sectors', SectorRoutes_1.default);
-    router.use('/aisles', AisleRoutes_1.default);
-    router.use('/slots', SlotRoutes_1.default);
-    router.use('/products', ProductRoutes_1.default);
-    router.use('/pallets', PalletRoutes_1.default);
+    // Documentation route
+    router.use('/docs', DocsRoute_1.default);
+    // API routes with version prefix
+    const apiRouter = (0, express_1.Router)();
+    // Auth routes
+    apiRouter.use('/auth', AuthRoutes_1.default);
+    // Resource routes
+    apiRouter.use('/users', UserRoutes_1.default);
+    apiRouter.use('/sectors', SectorRoutes_1.default);
+    apiRouter.use('/aisles', AisleRoutes_1.default);
+    apiRouter.use('/slots', SlotRoutes_1.default);
+    apiRouter.use('/products', ProductRoutes_1.default);
+    apiRouter.use('/pallets', PalletRoutes_1.default);
+    // Mount API router with version prefix
+    router.use('/api/v1', apiRouter);
     return router;
 };
-exports.default = createMainRoutes();
+exports.default = createMainRoutes;
 //# sourceMappingURL=index.js.map
