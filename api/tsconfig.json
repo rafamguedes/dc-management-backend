@@ -3,7 +3,7 @@
     "target": "es2019",
     "module": "commonjs",
     "sourceMap": true,
-    "outDir": "./build",
+    "outDir": "./api/build",
     "rootDir": "./",
     "strict": true,
     "moduleResolution": "node",
