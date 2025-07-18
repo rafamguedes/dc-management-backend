@@ -12,10 +12,6 @@ const PalletRoutes_1 = require("./PalletRoutes");
 const DocsRoute_1 = require("./DocsRoute");
 const createMainRoutes = () => {
     const router = (0, express_1.Router)();
-    // Root route - redirect to documentation
-    router.get('/', (_req, res) => {
-        res.redirect('/docs/swagger');
-    });
     router.use('/health', HealthRoute_1.default);
     router.use('/docs', DocsRoute_1.default);
     router.use('/auth', AuthRoutes_1.default);
