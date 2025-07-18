@@ -10,10 +10,9 @@
   "scripts": {
     "build": "npx tsc",
     "prestart": "npm run build && npm run db:reset",
-    "start": "node ./api/build/server",
+    "start": "node ./build/server",
     "dev": "tsnd --watch \"./src/**\" ./src/server.ts",
     "predev": "npm run db:reset",
-    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "test": "mocha -r ts-node/register tests/**/**/*.test.ts --exit -t 60000 --exit",
     "test:coverage": "nyc mocha -r ts-node/register tests/**/**/*.test.ts --exit -t 60000",
     "lint": "tsc && eslint . --ext .ts"
