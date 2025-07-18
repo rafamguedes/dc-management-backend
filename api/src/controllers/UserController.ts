@@ -108,13 +108,13 @@ export class UserController {
    *         content:
    *           application/json:
    *             schema:
-   *              $ref: '#/components/schemas/User'
-   *      400:
-   *        description: Bad request
-   *      404:
-   *       description: User not found
-   *      500:
-   *       description: Internal server error
+   *               $ref: '#/components/schemas/User'
+   *       400:
+   *         description: Bad request
+   *       404:
+   *         description: User not found
+   *       500:
+   *         description: Internal server error
    * */
   public async update(req: Request, res: Response): Promise<Response> {
     const { body } = req;
