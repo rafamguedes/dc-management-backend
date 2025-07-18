@@ -12,7 +12,8 @@ import DocsRoute from './DocsRoute';
 const createMainRoutes = (): Router => {
   const router = Router();
   
-  router.use('/health', HealthRoute);
+  router.get('/', (_req, res) => res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() }));
+  
   router.use('/docs', DocsRoute);
   router.use('/auth', AuthRoutes);
   router.use('/users', UserRoutes);
