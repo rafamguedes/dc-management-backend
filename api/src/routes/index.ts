@@ -14,6 +14,7 @@ const createMainRoutes = (): Router => {
   
   router.get('/', (_req, res) => res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() }));
   
+  router.use('/health', HealthRoute);
   router.use('/docs', DocsRoute);
   router.use('/auth', AuthRoutes);
   router.use('/users', UserRoutes);
