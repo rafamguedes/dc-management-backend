@@ -10,7 +10,7 @@
   "scripts": {
     "build": "npx tsc",
     "prestart": "npm run build && npm run db:reset",
-    "start": "node ./build/server",
+    "start": "node ./api/build/server",
     "dev": "tsnd --watch \"./src/**\" ./src/server.ts",
     "predev": "npm run db:reset",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
