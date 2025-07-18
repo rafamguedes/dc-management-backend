@@ -12,6 +12,11 @@ import DocsRoute from './DocsRoute';
 const createMainRoutes = (): Router => {
   const router = Router();
   
+  // Root route - redirect to documentation
+  router.get('/', (_req, res) => {
+    res.redirect('/docs/swagger');
+  });
+  
   router.use('/health', HealthRoute);
   router.use('/docs', DocsRoute);
   router.use('/auth', AuthRoutes);

@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const swagger_1 = require("../config/swagger");
 const router = (0, express_1.Router)();
-// Use dynamic import for ES module
 router.use('/swagger', async (req, res, next) => {
     try {
         const { apiReference } = await Promise.resolve().then(() => require('@scalar/express-api-reference'));
