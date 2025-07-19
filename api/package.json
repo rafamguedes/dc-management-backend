@@ -9,14 +9,10 @@
   },
   "scripts": {
     "build": "npx tsc",
-    "prestart": "npm run db:reset",
     "start": "node ./build/server",
-    "dev": "tsnd --watch \"./src/**\" ./src/server.ts",
-    "predev": "npm run db:reset",
-    "test": "mocha -r ts-node/register tests/**/**/*.test.ts --exit -t 60000 --exit",
-    "test:coverage": "nyc mocha -r ts-node/register tests/**/**/*.test.ts --exit -t 60000",
-    "lint": "tsc && eslint . --ext .ts",
-    "db:reset": "npx -y tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "prod:setup": "npm run db:migrate && npm run db:seed"
   },
   "keywords": [],
   "author": "Rafael Magalhães Guedes",
