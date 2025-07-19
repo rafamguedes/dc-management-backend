@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "npx tsc",
-    "prestart": "npm run build && npm run db:reset",
+    "prestart": "npm run db:reset",
     "start": "node ./build/server",
     "dev": "tsnd --watch \"./src/**\" ./src/server.ts",
     "predev": "npm run db:reset",
