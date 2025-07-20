@@ -273,16 +273,3 @@ Este projeto está sob a licença ISC. Veja o arquivo [LICENSE](LICENSE) para ma
 
 **Rafael Magalhães Guedes**
 - GitHub: [@rafamguedes](https://github.com/rafamguedes)
-
-## 🙏 Agradecimentos
-
-- [Express.js](https://expressjs.com/) - Framework web rápido e minimalista
-- [Sequelize](https://sequelize.org/) - ORM moderno para Node.js
-- [Swagger](https://swagger.io/) - Documentação de API
-- [Railway](https://railway.app/) - Plataforma de deployment
-
----
-
-<div align="center">
-  <strong>⭐ Se este projeto foi útil para você, considere dar uma estrela!</strong>
-</div>
