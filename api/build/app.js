@@ -7,7 +7,7 @@ const CorsMiddleware_1 = require("./middlewares/CorsMiddleware");
 const configureApp = (app) => {
     app.use(CorsMiddleware_1.default);
     app.use(express.json());
-    app.use(routes_1.default);
+    app.use((0, routes_1.default)());
 };
 const createApp = () => {
     const app = express();
